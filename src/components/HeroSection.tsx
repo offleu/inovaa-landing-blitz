@@ -1,5 +1,5 @@
 import { InovaaButton } from "./ui/inovaa-button";
-import heroWoman from "../assets/hero-woman.jpg";
+import heroWoman from "../assets/hero-woman.png";
 
 const HeroSection = () => {
   return (
