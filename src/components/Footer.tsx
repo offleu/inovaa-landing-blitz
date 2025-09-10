@@ -1,4 +1,4 @@
-import inovaaLogo from "../assets";
+import inovaaLogo from "../assets/inovaa-logo.png";
 
 const Footer = () => {
   return (
