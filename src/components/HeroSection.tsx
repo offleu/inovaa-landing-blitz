@@ -36,7 +36,7 @@ const HeroSection = () => {
               </p>
             </div>
             
-            <InovaaButton size="lg" className="animate-pulse">
+            <InovaaButton size="lg">
               Quero minha Loja Online
             </InovaaButton>
           </div>
