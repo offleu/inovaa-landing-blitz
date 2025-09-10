@@ -2,7 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
+/* Inovaa E-commerce Design System - All colors, gradients, fonts, etc defined here. 
 All colors MUST be HSL.
 */
 
@@ -17,8 +17,19 @@ All colors MUST be HSL.
     --popover: 0 0% 100%;
     --popover-foreground: 222.2 84% 4.9%;
 
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
+    /* Inovaa Brand Colors */
+    --primary: 270 70% 45%;
+    --primary-foreground: 0 0% 100%;
+    
+    --purple-brand: 270 70% 45%;
+    --pink-brand: 315 85% 60%;
+    --yellow-brand: 45 100% 50%;
+    --orange-brand: 25 95% 55%;
+    
+    /* Text Colors */
+    --text-dark: 225 15% 20%;
+    --text-gray: 225 10% 55%;
+    --text-light: 225 5% 75%;
 
     --secondary: 210 40% 96.1%;
     --secondary-foreground: 222.2 47.4% 11.2%;
@@ -36,7 +47,19 @@ All colors MUST be HSL.
     --input: 214.3 31.8% 91.4%;
     --ring: 222.2 84% 4.9%;
 
-    --radius: 0.5rem;
+    --radius: 1rem;
+    
+    /* Gradients */
+    --gradient-primary: linear-gradient(135deg, hsl(var(--purple-brand)), hsl(var(--pink-brand)));
+    --gradient-secondary: linear-gradient(135deg, hsl(var(--yellow-brand)), hsl(var(--orange-brand)));
+    --gradient-hero-bg: linear-gradient(135deg, hsl(var(--purple-brand) / 0.1), hsl(var(--pink-brand) / 0.1));
+    
+    /* Shadows */
+    --shadow-card: 0 4px 6px -1px hsl(var(--purple-brand) / 0.1), 0 2px 4px -1px hsl(var(--purple-brand) / 0.06);
+    --shadow-button: 0 4px 14px 0 hsl(var(--purple-brand) / 0.25);
+    
+    /* Typography */
+    --font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 
     --sidebar-background: 0 0% 98%;
 
@@ -101,5 +124,11 @@ All colors MUST be HSL.
 
   body {
     @apply bg-background text-foreground;
+    font-family: var(--font-family);
   }
+  
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-family);
+  }
+}
 }

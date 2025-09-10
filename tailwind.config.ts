@@ -23,6 +23,23 @@ export default {
           DEFAULT: "hsl(var(--primary))",
           foreground: "hsl(var(--primary-foreground))",
         },
+        purple: {
+          brand: "hsl(var(--purple-brand))",
+        },
+        pink: {
+          brand: "hsl(var(--pink-brand))",
+        },
+        yellow: {
+          brand: "hsl(var(--yellow-brand))",
+        },
+        orange: {
+          brand: "hsl(var(--orange-brand))",
+        },
+        text: {
+          dark: "hsl(var(--text-dark))",
+          gray: "hsl(var(--text-gray))",
+          light: "hsl(var(--text-light))",
+        },
         secondary: {
           DEFAULT: "hsl(var(--secondary))",
           foreground: "hsl(var(--secondary-foreground))",
@@ -62,6 +79,18 @@ export default {
         lg: "var(--radius)",
         md: "calc(var(--radius) - 2px)",
         sm: "calc(var(--radius) - 4px)",
+      },
+      backgroundImage: {
+        'gradient-primary': 'var(--gradient-primary)',
+        'gradient-secondary': 'var(--gradient-secondary)',
+        'gradient-hero': 'var(--gradient-hero-bg)',
+      },
+      boxShadow: {
+        'card': 'var(--shadow-card)',
+        'button': 'var(--shadow-button)',
+      },
+      fontFamily: {
+        'inter': 'var(--font-family)',
       },
       keyframes: {
         "accordion-down": {
