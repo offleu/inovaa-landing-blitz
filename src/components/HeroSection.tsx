@@ -34,8 +34,7 @@ const HeroSection = () => {
             <div className="relative">
               <img 
                 src={heroWoman} 
-                alt="Mulher sorrindo trabalhando com e-commerce" 
-                className="bottom-0 left-0 h-[80%] w-auto"
+                alt="Mulher sorrindo trabalhando com e-commerce"
               />
             </div>
           </div>
