@@ -35,7 +35,7 @@ const HeroSection = () => {
               <img 
                 src={heroWoman} 
                 alt="Mulher sorrindo trabalhando com e-commerce" 
-                className="absolute bottom-0 left-0 h-screen w-auto object-contain"
+                className="left-0 h-screen w-auto object-contain"
               />
             </div>
           </div>
