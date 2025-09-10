@@ -11,6 +11,7 @@ const inovaaButtonVariants = cva(
       variant: {
         primary: "bg-gradient-primary text-white shadow-button hover:shadow-lg transition-all duration-300 hover:scale-105",
         secondary: "bg-gradient-secondary text-white shadow-button hover:shadow-lg transition-all duration-300 hover:scale-105",
+        yellow: "bg-yellow-brand text-white shadow-button hover:shadow-lg transition-all duration-300 hover:scale-105 hover:brightness-110",
         outline: "border border-purple-brand text-purple-brand bg-transparent hover:bg-purple-brand hover:text-white transition-all duration-300",
       },
       size: {

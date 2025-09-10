@@ -63,7 +63,7 @@ const HowItWorksSection = () => {
         </div>
         
         <div className="text-center">
-          <InovaaButton variant="secondary" size="lg">
+          <InovaaButton variant="yellow" size="lg">
             Quero minha Loja Online
           </InovaaButton>
         </div>
