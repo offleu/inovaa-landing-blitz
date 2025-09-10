@@ -44,7 +44,6 @@ const HeroSection = () => {
           {/* Right Image */}
           <div className="relative flex justify-center">
             <div className="relative">
-              <div className="absolute inset-0 bg-gradient-primary rounded-full blur-3xl opacity-20 scale-110"></div>
               <img 
                 src={heroWoman} 
                 alt="Mulher sorrindo trabalhando com e-commerce" 
