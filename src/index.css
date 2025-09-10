@@ -17,14 +17,14 @@ All colors MUST be HSL.
     --popover: 0 0% 100%;
     --popover-foreground: 222.2 84% 4.9%;
 
-    /* Inovaa Brand Colors */
-    --primary: 270 70% 45%;
+    /* Inovaa Brand Colors - Cores exatas em HSL */
+    --primary: 267 57% 51%;
     --primary-foreground: 0 0% 100%;
     
-    --purple-brand: 270 70% 45%;
-    --pink-brand: 315 85% 60%;
-    --yellow-brand: 45 100% 50%;
-    --orange-brand: 25 95% 55%;
+    --purple-brand: 267 57% 51%;      /* #783AC7 */
+    --purple-blue: 252 80% 59%;       /* #5447E7 */
+    --pink-brand: 326 66% 49%;        /* #CB2D77 */
+    --yellow-brand: 45 81% 56%;       /* #EBB733 */
     
     /* Text Colors */
     --text-dark: 225 15% 20%;
@@ -49,9 +49,9 @@ All colors MUST be HSL.
 
     --radius: 1rem;
     
-    /* Gradients */
+    /* Gradients com cores exatas */
     --gradient-primary: linear-gradient(135deg, hsl(var(--purple-brand)), hsl(var(--pink-brand)));
-    --gradient-secondary: linear-gradient(135deg, hsl(var(--yellow-brand)), hsl(var(--orange-brand)));
+    --gradient-secondary: linear-gradient(135deg, hsl(var(--purple-blue)), hsl(var(--yellow-brand)));
     --gradient-hero-bg: linear-gradient(135deg, hsl(var(--purple-brand) / 0.1), hsl(var(--pink-brand) / 0.1));
     
     /* Shadows */

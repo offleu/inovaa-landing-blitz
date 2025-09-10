@@ -25,15 +25,13 @@ export default {
         },
         purple: {
           brand: "hsl(var(--purple-brand))",
+          blue: "hsl(var(--purple-blue))",
         },
         pink: {
           brand: "hsl(var(--pink-brand))",
         },
         yellow: {
           brand: "hsl(var(--yellow-brand))",
-        },
-        orange: {
-          brand: "hsl(var(--orange-brand))",
         },
         text: {
           dark: "hsl(var(--text-dark))",
