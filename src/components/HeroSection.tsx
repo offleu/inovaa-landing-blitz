@@ -5,6 +5,12 @@ const HeroSection = () => {
   return (
     <section className="relative w-full min-h-screen flex items-start overflow-hidden">
 
+      {/* Background desktop */}
+      <div
+        className="hidden md:block absolute inset-0 bg-cover bg-center"
+        style={{ backgroundImage: `url(${heroWoman})` }}
+      ></div>
+
       {/* Overlay gradient */}
       <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-white/50"></div>
 
@@ -33,12 +39,12 @@ const HeroSection = () => {
           </div>
         </div>
 
-        {/* Imagem */}
-        <div className="w-full md:w-1/2 mt-8 md:mt-0 flex justify-center md:justify-end">
+        {/* Imagem Mobile */}
+        <div className="md:hidden w-full mt-8 flex justify-center">
           <img
             src={heroWoman}
             alt="Mulher sorrindo trabalhando com e-commerce"
-            className="w-full max-w-md md:max-w-full object-contain"
+            className="w-full max-w-md object-contain"
           />
         </div>
 
