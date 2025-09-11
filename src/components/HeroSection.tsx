@@ -29,11 +29,11 @@ const HeroSection = () => {
         
         {/* Imagem da moça abaixo do texto no mobile */}
         <div className="mt-8 px-4">
-          <div className="relative aspect-[4/5] max-w-sm mx-auto rounded-2xl overflow-hidden">
+          <div className="relative aspect-[3/4] max-w-xs mx-auto rounded-2xl overflow-hidden">
             <img
               src={heroWoman}
               alt="Mulher sorrindo trabalhando com e-commerce"
-              className="absolute inset-0 w-full h-full object-cover object-center"
+              className="absolute inset-0 w-full h-full object-cover object-[center_20%]"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
           </div>
@@ -50,7 +50,7 @@ const HeroSection = () => {
         />
 
         {/* Overlay gradient para contraste do texto */}
-        <div className="absolute inset-0 bg-gradient-to-r from-white/90 via-white/60 to-transparent"></div>
+        <div className="absolute inset-0 bg-gradient-to-r from-white/95 via-white/40 to-transparent"></div>
 
         {/* Conteúdo do Hero desktop */}
         <div className="relative z-10 container mx-auto px-4 py-12 flex items-center">
