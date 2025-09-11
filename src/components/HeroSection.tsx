@@ -5,9 +5,6 @@ const HeroSection = () => {
   return (
     <section className="relative w-full min-h-screen flex items-start overflow-hidden">
 
-      {/* Overlay gradient */}
-      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-white/50"></div>
-
       {/* Conteúdo */}
       <div className="relative z-10 container mx-auto px-4 py-12 flex flex-col md:flex-row items-start md:items-end justify-between min-h-screen">
 
