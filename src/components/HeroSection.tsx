@@ -40,7 +40,7 @@ const HeroSection = () => {
         </div>
 
         {/* Imagem Mobile */}
-        <div className="md:hidden w-full mt-8 flex justify-center">
+        <div className="md:hidden w-full mt-16 flex justify-center">
           <img
             src={heroWoman}
             alt="Mulher sorrindo trabalhando com e-commerce"
