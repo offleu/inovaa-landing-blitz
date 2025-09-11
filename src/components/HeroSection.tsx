@@ -5,17 +5,11 @@ const HeroSection = () => {
   return (
     <section className="relative w-full min-h-screen flex items-start overflow-hidden">
 
-      {/* Background desktop */}
-      <div
-        className="hidden md:block absolute inset-0 bg-cover bg-center"
-        style={{ backgroundImage: `url(${heroWoman})` }}
-      ></div>
-
       {/* Overlay gradient */}
       <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-white/50"></div>
 
       {/* Conteúdo */}
-      <div className="relative z-10 container mx-auto px-4 py-12 flex flex-col md:flex-row items-start md:items-end justify-between min-h-screen">
+      <div className="relative z-10 container mx-auto px-4 pt-8 md:pt-16 lg:pt-24 flex flex-col md:flex-row items-start md:items-end justify-between min-h-screen">
 
         {/* Texto */}
         <div className="max-w-2xl space-y-6 sm:space-y-8 md:mr-8">
@@ -39,12 +33,12 @@ const HeroSection = () => {
           </div>
         </div>
 
-        {/* Imagem Mobile */}
-        <div className="md:hidden w-full mt-8 flex justify-center">
+        {/* Imagem */}
+        <div className="w-full md:w-1/2 mt-8 md:mt-0 flex justify-center md:justify-end">
           <img
             src={heroWoman}
             alt="Mulher sorrindo trabalhando com e-commerce"
-            className="w-full max-w-md object-contain"
+            className="w-full max-w-md md:max-w-full object-contain"
           />
         </div>
 
