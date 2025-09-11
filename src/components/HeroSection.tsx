@@ -3,13 +3,13 @@ import heroWoman from "../assets/hero-woman.png";
 
 const HeroSection = () => {
   return (
-    <section className="relative w-full min-h-screen flex items-center overflow-hidden">
-      
-      {/* Overlay gradient para contraste do texto */}
+    <section className="relative w-full min-h-screen flex items-start overflow-hidden">
+
+      {/* Overlay gradient */}
       <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-white/50"></div>
 
-      {/* Conteúdo do Hero */}
-      <div className="relative z-10 container mx-auto px-4 py-12 flex flex-col md:flex-row items-center md:items-end justify-between min-h-screen">
+      {/* Conteúdo */}
+      <div className="relative z-10 container mx-auto px-4 py-12 flex flex-col md:flex-row items-start md:items-end justify-between min-h-screen">
 
         {/* Texto */}
         <div className="max-w-2xl space-y-6 sm:space-y-8 md:mr-8">
