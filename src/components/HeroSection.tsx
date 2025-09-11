@@ -4,7 +4,7 @@ import heroWoman from "../assets/hero-woman.png";
 const HeroSection = () => {
   return (
     <section className="relative w-full min-h-screen flex items-center">
-      
+
       {/* Imagem de fundo */}
       <img
         src={heroWoman}
@@ -12,7 +12,7 @@ const HeroSection = () => {
         className="absolute inset-0 w-full h-full object-cover object-bottom md:object-center"
       />
 
-      {/* Overlay gradient (opcional, para melhorar contraste do texto) */}
+      {/* Overlay gradient para contraste do texto */}
       <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-white/30"></div>
 
       {/* Conteúdo do Hero */}
