@@ -29,11 +29,11 @@ const HeroSection = () => {
           </div>
 
           {/* Right Image */}
-          <div className="relative flex justify-center lg:justify-end w-full">
+          <div className="relative flex justify-center lg:justify-end items-end w-full h-full">
             <img
               src={heroWoman}
               alt="Mulher sorrindo trabalhando com e-commerce"
-              className="w-3/4 md:w-2/3 lg:w-auto lg:h-[90vh] object-contain"
+              className="max-h-[90vh] lg:max-h-[95vh] min-h-[400px] w-auto object-contain"
             />
           </div>
         </div>
