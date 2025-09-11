@@ -3,6 +3,7 @@ import heroWoman from "../assets/hero-woman.png";
 
 const HeroSection = () => {
   return (
+<<<<<<< HEAD
     <section className="relative w-full min-h-screen flex items-start overflow-hidden">
 
       {/* Background desktop */}
@@ -33,10 +34,44 @@ const HeroSection = () => {
           </p>
 
           <div>
+=======
+    <section className="relative bg-gradient-hero min-h-screen">
+      <div className="container mx-auto px-4 py-12">
+        <div className="grid lg:grid-cols-2 gap-12 items-center min-h-[calc(100vh-8rem)]">
+          {/* Left Content */}
+          <div className="space-y-8">
+            <div className="space-y-6">
+              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-text-dark leading-tight">
+                Transforme sua ideia em um e-commerce de{" "}
+                <span className="bg-gradient-primary bg-clip-text text-transparent">
+                  sucesso
+                </span>{" "}
+                em tempo recorde!
+              </h1>
+
+              <p className="text-lg md:text-xl text-text-gray leading-relaxed max-w-2xl">
+                Criamos sua loja virtual completa, profissional e pronta para vender em até 20 dias. 
+                Design exclusivo, funcionalidades completas e suporte dedicado.
+              </p>
+            </div>
+
+>>>>>>> parent of bd3c704 (asdas)
             <InovaaButton size="lg">
               Quero minha Loja Online
             </InovaaButton>
           </div>
+<<<<<<< HEAD
+=======
+
+          {/* Right Image */}
+          <div className="relative flex justify-center lg:justify-end items-end w-full h-full">
+            <img
+              src={heroWoman}
+              alt="Mulher sorrindo trabalhando com e-commerce"
+              className="max-h-[90vh] lg:max-h-[95vh] min-h-[400px] w-auto object-contain"
+            />
+          </div>
+>>>>>>> parent of bd3c704 (asdas)
         </div>
 
         {/* Imagem Mobile */}
