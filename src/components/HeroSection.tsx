@@ -11,11 +11,14 @@ const HeroSection = () => {
         style={{ backgroundImage: `url(${heroWoman})` }}
       ></div>
 
+      {/* Overlay gradient */}
+      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-white/50"></div>
+
       {/* Conteúdo */}
       <div className="relative z-10 container mx-auto px-4 py-12 flex flex-col md:flex-row items-start md:items-end justify-between min-h-screen">
 
         {/* Texto */}
-        <div className="max-w-2xl space-y-6 sm:space-y-8 md:mr-8">
+        <div className="max-w-2xl space-y-6 sm:space-y-8 md:mr-8 md:-mt-16">
           <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-text-dark leading-tight">
             Transforme sua ideia em um e-commerce de{" "}
             <span className="bg-gradient-primary bg-clip-text text-transparent">
