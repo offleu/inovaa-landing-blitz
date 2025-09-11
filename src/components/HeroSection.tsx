@@ -4,7 +4,6 @@ import heroWoman from "../assets/hero-woman.png";
 const HeroSection = () => {
   return (
     <section className="relative bg-gradient-hero min-h-screen">
-
       <div className="container mx-auto px-4 py-12">
         <div className="grid lg:grid-cols-2 gap-12 items-center min-h-[calc(100vh-8rem)]">
           {/* Left Content */}
@@ -17,27 +16,25 @@ const HeroSection = () => {
                 </span>{" "}
                 em tempo recorde!
               </h1>
-              
+
               <p className="text-lg md:text-xl text-text-gray leading-relaxed max-w-2xl">
                 Criamos sua loja virtual completa, profissional e pronta para vender em até 20 dias. 
                 Design exclusivo, funcionalidades completas e suporte dedicado.
               </p>
             </div>
-            
+
             <InovaaButton size="lg">
               Quero minha Loja Online
             </InovaaButton>
           </div>
-          
+
           {/* Right Image */}
-          <div className="relative flex justify-end items-end w-full h-screen">
-            <div className="relative">
-              <img 
-                src={heroWoman} 
-                alt="Mulher sorrindo trabalhando com e-commerce"
-                className="h-full object-contain"
-              />
-            </div>
+          <div className="relative flex justify-center lg:justify-end w-full">
+            <img
+              src={heroWoman}
+              alt="Mulher sorrindo trabalhando com e-commerce"
+              className="w-3/4 md:w-2/3 lg:w-auto lg:h-[90vh] object-contain"
+            />
           </div>
         </div>
       </div>
