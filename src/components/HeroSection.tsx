@@ -9,7 +9,7 @@ const HeroSection = () => {
       <img
         src={heroWoman}
         alt="Mulher sorrindo trabalhando com e-commerce"
-        className="absolute inset-0 w-full h-full object-cover object-bottom md:object-center"
+        className="absolute inset-0 w-full h-full object-cover object-bottom sm:object-[70%_bottom] md:object-center"
       />
 
       {/* Overlay gradient para contraste do texto */}
