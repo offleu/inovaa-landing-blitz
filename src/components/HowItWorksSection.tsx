@@ -63,8 +63,10 @@ const HowItWorksSection = () => {
         </div>
         
         <div className="text-center">
-          <InovaaButton variant="yellow" size="lg">
-            Quero minha Loja Online
+          <InovaaButton variant="yellow" size="lg" asChild>
+            <a href="https://api.whatsapp.com/send/?phone=5514991302496&text&type=phone_number&app_absent=0" target="_blank" rel="noopener noreferrer">
+              Quero minha Loja Online
+            </a>
           </InovaaButton>
         </div>
       </div>

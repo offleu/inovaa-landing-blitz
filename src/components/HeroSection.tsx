@@ -33,8 +33,10 @@ const HeroSection = () => {
           </p>
 
           <div>
-            <InovaaButton size="lg">
-              Quero minha Loja Online
+            <InovaaButton size="lg" asChild>
+              <a href="https://api.whatsapp.com/send/?phone=5514991302496&text&type=phone_number&app_absent=0" target="_blank" rel="noopener noreferrer">
+                Quero minha Loja Online
+              </a>
             </InovaaButton>
           </div>
         </div>
