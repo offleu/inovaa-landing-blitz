@@ -1,4 +1,5 @@
 import { Laptop, Package, Palette } from "lucide-react";
+import { Link } from "react-router-dom";
 import { InovaaButton } from "./ui/inovaa-button";
 
 const PackagesSection = () => {
@@ -61,9 +62,9 @@ const PackagesSection = () => {
         
         <div className="text-center">
           <InovaaButton size="lg" asChild>
-            <a href="https://api.whatsapp.com/send/?phone=5514991302496&text&type=phone_number&app_absent=0" target="_blank" rel="noopener noreferrer">
+            <Link to="/formulario-contato">
               Quero minha Loja Online
-            </a>
+            </Link>
           </InovaaButton>
         </div>
       </div>
