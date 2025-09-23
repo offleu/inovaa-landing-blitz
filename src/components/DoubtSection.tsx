@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { InovaaButton } from "./ui/inovaa-button";
 
 const DoubtSection = () => {
@@ -18,9 +19,9 @@ const DoubtSection = () => {
           </p>
           
           <InovaaButton size="lg" className="mx-auto" asChild>
-            <a href="https://api.whatsapp.com/send/?phone=5514991302496&text&type=phone_number&app_absent=0" target="_blank" rel="noopener noreferrer">
+            <Link to="/formulario-contato">
               Tirar dúvidas
-            </a>
+            </Link>
           </InovaaButton>
         </div>
       </div>
