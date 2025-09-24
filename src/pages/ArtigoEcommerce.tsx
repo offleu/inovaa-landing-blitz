@@ -5,6 +5,7 @@ import Footer from "../components/Footer";
 import { InovaaButton } from "../components/ui/inovaa-button";
 import { Badge } from "../components/ui/badge";
 import { Separator } from "../components/ui/separator";
+import ecommerceGrowthImage from "../assets/ecommerce-growth-2025.jpg";
 
 const ArtigoEcommerce = () => {
   return (
@@ -58,8 +59,8 @@ const ArtigoEcommerce = () => {
             
             <div className="mt-8">
               <img 
-                src="/lovable-uploads/24340949-b521-4c03-85fa-c42e08ccd670.png" 
-                alt="E-commerce de sucesso - Pessoa usando computador para vendas online"
+                src={ecommerceGrowthImage}
+                alt="Crescimento do e-commerce em 2025 - Gráficos e tendências digitais"
                 className="w-full h-64 md:h-96 object-cover rounded-xl shadow-lg"
               />
             </div>
