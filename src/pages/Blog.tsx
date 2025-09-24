@@ -108,9 +108,19 @@ const Blog = () => {
                     variant="outline" 
                     size="sm"
                     className="w-full group/btn"
+                    asChild
                   >
-                    Ler Artigo
-                    <ArrowRight className="w-4 h-4 transition-transform group-hover/btn:translate-x-1" />
+                    {post.id === 1 ? (
+                      <a href="/blog/como-criar-ecommerce-sucesso-2025">
+                        Ler Artigo
+                        <ArrowRight className="w-4 h-4 transition-transform group-hover/btn:translate-x-1" />
+                      </a>
+                    ) : (
+                      <span>
+                        Ler Artigo
+                        <ArrowRight className="w-4 h-4 transition-transform group-hover/btn:translate-x-1" />
+                      </span>
+                    )}
                   </InovaaButton>
                 </CardContent>
               </Card>
