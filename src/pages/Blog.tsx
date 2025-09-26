@@ -16,7 +16,7 @@ const blogPosts = [
     author: "Equipe Inovaa",
     date: "2024-01-15",
     readTime: "5 min",
-    image: "/lovable-uploads/24340949-b521-4c03-85fa-c42e08ccd670.png"
+    image: "/src/assets/carrinho-insights-2025.jpg"
   },
   {
     id: 2,
@@ -27,7 +27,7 @@ const blogPosts = [
     author: "Equipe Inovaa",
     date: "2024-01-10",
     readTime: "7 min",
-    image: "/lovable-uploads/24340949-b521-4c03-85fa-c42e08ccd670.png"
+    image: "/src/assets/carrinho-insights-2025.jpg"
   },
   {
     id: 3,
@@ -38,7 +38,7 @@ const blogPosts = [
     author: "Equipe Inovaa",
     date: "2024-01-05",
     readTime: "10 min",
-    image: "/lovable-uploads/24340949-b521-4c03-85fa-c42e08ccd670.png"
+    image: "/src/assets/carrinho-insights-2025.jpg"
   }
 ];
 
