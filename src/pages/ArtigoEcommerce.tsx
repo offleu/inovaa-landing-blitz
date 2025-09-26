@@ -7,6 +7,7 @@ import { Badge } from "../components/ui/badge";
 import { Separator } from "../components/ui/separator";
 import ecommerceGrowthImage from "../assets/ecommerce-growth-2025.jpg";
 import lojaFisicaEcommerceImage from "../assets/loja-fisica-ecommerce-integracao.jpg";
+import lojaPropriaVsMarketplacesImage from "../assets/loja-propria-vs-marketplaces.jpg";
 
 const ArtigoEcommerce = () => {
   return (
@@ -137,8 +138,8 @@ const ArtigoEcommerce = () => {
 
               <div className="mt-8">
                 <img 
-                  src="/lovable-uploads/24340949-b521-4c03-85fa-c42e08ccd670.png" 
-                  alt="Planejamento de e-commerce - Mesa com documentos e laptop"
+                  src={lojaPropriaVsMarketplacesImage} 
+                  alt="Comparativo: Loja Virtual Própria vs Marketplaces - Mercado Livre, Shopee, Amazon"
                   className="w-full h-64 object-cover rounded-xl shadow-lg"
                 />
               </div>
