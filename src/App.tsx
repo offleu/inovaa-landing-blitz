@@ -7,6 +7,12 @@ import Index from "./pages/Index";
 import FormularioContato from "./pages/FormularioContato";
 import Blog from "./pages/Blog";
 import ArtigoEcommerce from "./pages/ArtigoEcommerce";
+import CriacaoSiteEcommerce from "./pages/CriacaoSiteEcommerce";
+import GestaoEcommerce from "./pages/GestaoEcommerce";
+import MarketingDigital from "./pages/MarketingDigital";
+import SocialMedia from "./pages/SocialMedia";
+import FerramentasIA from "./pages/FerramentasIA";
+import Microservicos from "./pages/Microservicos";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -22,6 +28,12 @@ const App = () => (
           <Route path="/formulario-contato" element={<FormularioContato />} />
           <Route path="/blog" element={<Blog />} />
           <Route path="/blog/como-criar-ecommerce-sucesso-2025" element={<ArtigoEcommerce />} />
+          <Route path="/servicos/criacao-site-ecommerce" element={<CriacaoSiteEcommerce />} />
+          <Route path="/servicos/gestao-ecommerce" element={<GestaoEcommerce />} />
+          <Route path="/servicos/marketing-digital" element={<MarketingDigital />} />
+          <Route path="/servicos/social-media" element={<SocialMedia />} />
+          <Route path="/servicos/ferramentas-ia" element={<FerramentasIA />} />
+          <Route path="/servicos/microservicos" element={<Microservicos />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
