@@ -6,6 +6,7 @@ import { InovaaButton } from "../components/ui/inovaa-button";
 import { Badge } from "../components/ui/badge";
 import { Separator } from "../components/ui/separator";
 import ecommerceGrowthImage from "../assets/ecommerce-growth-2025.jpg";
+import lojaFisicaEcommerceImage from "../assets/loja-fisica-ecommerce-integracao.jpg";
 
 const ArtigoEcommerce = () => {
   return (
@@ -81,8 +82,8 @@ const ArtigoEcommerce = () => {
               
               <div className="bg-gradient-to-r from-purple-50 to-blue-50 dark:from-purple-950/20 dark:to-blue-950/20 p-6 rounded-xl border border-purple-100 dark:border-purple-800 mb-8">
                 <img 
-                  src="/lovable-uploads/24340949-b521-4c03-85fa-c42e08ccd670.png" 
-                  alt="Gráfico mostrando crescimento do e-commerce"
+                  src={lojaFisicaEcommerceImage} 
+                  alt="Integração entre loja física e e-commerce com tecnologia e inovação"
                   className="w-full h-48 object-cover rounded-lg mb-4"
                 />
                 <p className="text-sm text-muted-foreground italic">
