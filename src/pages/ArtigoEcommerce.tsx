@@ -8,19 +8,14 @@ import { Separator } from "../components/ui/separator";
 import ecommerceGrowthImage from "../assets/ecommerce-growth-2025.jpg";
 import lojaFisicaEcommerceImage from "../assets/loja-fisica-ecommerce-integracao.jpg";
 import lojaPropriaVsMarketplacesImage from "../assets/loja-propria-vs-marketplaces.jpg";
-
 const ArtigoEcommerce = () => {
-  return (
-    <div className="min-h-screen bg-gradient-to-br from-background via-background to-purple-50/20 dark:to-purple-950/20">
+  return <div className="min-h-screen bg-gradient-to-br from-background via-background to-purple-50/20 dark:to-purple-950/20">
       <Header />
       
       {/* Breadcrumb */}
       <div className="pt-20 pb-8 px-4">
         <div className="container mx-auto max-w-4xl">
-          <Link 
-            to="/blog" 
-            className="inline-flex items-center text-muted-foreground hover:text-purple-brand transition-colors"
-          >
+          <Link to="/blog" className="inline-flex items-center text-muted-foreground hover:text-purple-brand transition-colors">
             <ArrowLeft className="w-4 h-4 mr-2" />
             Voltar para o Blog
           </Link>
@@ -60,11 +55,7 @@ const ArtigoEcommerce = () => {
             </p>
             
             <div className="mt-8">
-              <img 
-                src={ecommerceGrowthImage}
-                alt="Crescimento do e-commerce em 2025 - Gráficos e tendências digitais"
-                className="w-full h-64 md:h-96 object-cover rounded-xl shadow-lg"
-              />
+              <img src={ecommerceGrowthImage} alt="Crescimento do e-commerce em 2025 - Gráficos e tendências digitais" className="w-full h-64 md:h-96 object-cover rounded-xl shadow-lg" />
             </div>
           </header>
 
@@ -82,11 +73,7 @@ const ArtigoEcommerce = () => {
               </p>
               
               <div className="bg-gradient-to-r from-purple-50 to-blue-50 dark:from-purple-950/20 dark:to-blue-950/20 p-6 rounded-xl border border-purple-100 dark:border-purple-800 mb-8">
-                <img 
-                  src={lojaFisicaEcommerceImage} 
-                  alt="Integração entre loja física e e-commerce com tecnologia e inovação"
-                  className="w-full h-48 object-cover rounded-lg mb-4"
-                />
+                <img src={lojaFisicaEcommerceImage} alt="Integração entre loja física e e-commerce com tecnologia e inovação" className="w-full h-48 object-cover rounded-lg mb-4" />
                 <p className="text-sm text-muted-foreground italic">
                   Estar presente no ambiente digital não é mais uma opção, mas uma necessidade para quem deseja prosperar no varejo.
                 </p>
@@ -137,11 +124,7 @@ const ArtigoEcommerce = () => {
               </div>
 
               <div className="mt-8">
-                <img 
-                  src={lojaPropriaVsMarketplacesImage} 
-                  alt="Comparativo: Loja Virtual Própria vs Marketplaces - Mercado Livre, Shopee, Amazon"
-                  className="w-full h-64 object-cover rounded-xl shadow-lg"
-                />
+                <img src={lojaPropriaVsMarketplacesImage} alt="Comparativo: Loja Virtual Própria vs Marketplaces - Mercado Livre, Shopee, Amazon" className="w-full h-64 object-cover rounded-xl shadow-lg" />
               </div>
             </section>
 
@@ -262,11 +245,7 @@ const ArtigoEcommerce = () => {
               </div>
 
               <div className="mt-8">
-                <img 
-                  src="/lovable-uploads/24340949-b521-4c03-85fa-c42e08ccd670.png" 
-                  alt="Comparativo de plataformas de e-commerce"
-                  className="w-full h-64 object-cover rounded-xl shadow-lg"
-                />
+                
               </div>
             </section>
 
@@ -323,21 +302,12 @@ const ArtigoEcommerce = () => {
                 Na Inovaa E-commerce, transformamos sua visão em realidade. Nossa equipe especializada cuida de toda a criação e gestão da sua loja virtual, desde o design até as estratégias de marketing digital.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <InovaaButton 
-                  variant="secondary" 
-                  size="lg"
-                  asChild
-                >
+                <InovaaButton variant="secondary" size="lg" asChild>
                   <a href="/formulario-contato">
                     Quero Minha Loja Online
                   </a>
                 </InovaaButton>
-                <InovaaButton 
-                  variant="outline" 
-                  size="lg"
-                  className="border-white text-white hover:bg-white hover:text-purple-brand"
-                  asChild
-                >
+                <InovaaButton variant="outline" size="lg" className="border-white text-white hover:bg-white hover:text-purple-brand" asChild>
                   <a href="https://wa.me/5511999999999" target="_blank" rel="noopener noreferrer">
                     Falar no WhatsApp
                   </a>
@@ -363,28 +333,13 @@ const ArtigoEcommerce = () => {
                 <span className="text-sm text-muted-foreground">Compartilhe este artigo:</span>
               </div>
               <div className="flex space-x-4">
-                <a 
-                  href={`https://twitter.com/intent/tweet?text=${encodeURIComponent('Como Criar um E-commerce de Sucesso em 2025')}&url=${encodeURIComponent(window.location.href)}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-muted-foreground hover:text-purple-brand transition-colors"
-                >
+                <a href={`https://twitter.com/intent/tweet?text=${encodeURIComponent('Como Criar um E-commerce de Sucesso em 2025')}&url=${encodeURIComponent(window.location.href)}`} target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-purple-brand transition-colors">
                   Twitter
                 </a>
-                <a 
-                  href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(window.location.href)}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-muted-foreground hover:text-purple-brand transition-colors"
-                >
+                <a href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(window.location.href)}`} target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-purple-brand transition-colors">
                   Facebook
                 </a>
-                <a 
-                  href={`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(window.location.href)}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-muted-foreground hover:text-purple-brand transition-colors"
-                >
+                <a href={`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(window.location.href)}`} target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-purple-brand transition-colors">
                   LinkedIn
                 </a>
               </div>
@@ -394,8 +349,6 @@ const ArtigoEcommerce = () => {
       </article>
       
       <Footer />
-    </div>
-  );
+    </div>;
 };
-
 export default ArtigoEcommerce;
