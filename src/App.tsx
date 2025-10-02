@@ -21,39 +21,42 @@ import Microservicos from "./pages/Microservicos";
 
 const queryClient = new QueryClient();
 
-const App = () => (
-  <QueryClientProvider client={queryClient}>
-    <TooltipProvider>
-      <Toaster />
-      <Sonner />
-      <BrowserRouter>
-        <ScrollToTop />
-        <Routes>
-          {/* Home e contato */}
-          <Route path="/" element={<Index />} />
-          <Route path="/formulario-contato" element={<FormularioContato />} />
+const App = () => {
+  return (
+    <QueryClientProvider client={queryClient}>
+      <TooltipProvider>
+        <Toaster />
+        <Sonner />
+        <BrowserRouter>
+          <ScrollToTop />
+          <Routes>
+            {/* Home e contato */}
+            <Route path="/" element={<Index />} />
+            <Route path="/formulario-contato" element={<FormularioContato />} />
 
-          {/* Blog */}
-          <Route path="/blog" element={<Blog />} />
-          <Route path="/blog/:slug" element={<BlogPost />} />
+            {/* Blog */}
+            <Route path="/blog" element={<Blog />} />
+            {/* Rota dinâmica para artigos via slug */}
+            <Route path="/blog/:slug" element={<BlogPost />} />
 
-          {/* Páginas de artigos fixos */}
-          <Route path="/blog/como-criar-ecommerce-sucesso-2025" element={<ArtigoEcommerce />} />
+            {/* Artigos fixos opcionais */}
+            <Route path="/blog/como-criar-ecommerce-sucesso-2025" element={<ArtigoEcommerce />} />
 
-          {/* Serviços */}
-          <Route path="/servicos/criacao-site-ecommerce" element={<CriacaoSiteEcommerce />} />
-          <Route path="/servicos/gestao-ecommerce" element={<GestaoEcommerce />} />
-          <Route path="/servicos/marketing-digital" element={<MarketingDigital />} />
-          <Route path="/servicos/social-media" element={<SocialMedia />} />
-          <Route path="/servicos/ferramentas-ia" element={<FerramentasIA />} />
-          <Route path="/servicos/microservicos" element={<Microservicos />} />
+            {/* Serviços */}
+            <Route path="/servicos/criacao-site-ecommerce" element={<CriacaoSiteEcommerce />} />
+            <Route path="/servicos/gestao-ecommerce" element={<GestaoEcommerce />} />
+            <Route path="/servicos/marketing-digital" element={<MarketingDigital />} />
+            <Route path="/servicos/social-media" element={<SocialMedia />} />
+            <Route path="/servicos/ferramentas-ia" element={<FerramentasIA />} />
+            <Route path="/servicos/microservicos" element={<Microservicos />} />
 
-          {/* Página 404 */}
-          <Route path="*" element={<NotFound />} />
-        </Routes>
-      </BrowserRouter>
-    </TooltipProvider>
-  </QueryClientProvider>
-);
+            {/* Página 404 */}
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </BrowserRouter>
+      </TooltipProvider>
+    </QueryClientProvider>
+  );
+};
 
 export default App;

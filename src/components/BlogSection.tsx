@@ -1,27 +1,26 @@
 import { useEffect, useState } from "react";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "./ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "./ui/card";
 import { Badge } from "./ui/badge";
 import { Calendar, Clock, ArrowRight } from "lucide-react";
 import { InovaaButton } from "./ui/inovaa-button";
 import { Link } from "react-router-dom";
-import { fetchArticles, Article } from "../lib/airticles";
+import { fetchArticles, ArticleIndex } from "../lib/airticles";
 
 const BlogSection = () => {
-  const [articles, setArticles] = useState<Article[]>([]);
+  const [articles, setArticles] = useState<ArticleIndex[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const loadArticles = async () => {
       try {
-        const data = await fetchArticles(3); // Apenas 3 artigos em destaque
-        setArticles(data.items);
+        const data = await fetchArticles(3); // Buscar apenas 3 artigos
+        setArticles(data);
       } catch (error) {
         console.error("Erro ao carregar artigos:", error);
       } finally {
         setLoading(false);
       }
     };
-
     loadArticles();
   }, []);
 
@@ -51,45 +50,38 @@ const BlogSection = () => {
                 </CardHeader>
               </Card>
             ))
+          ) : articles.length === 0 ? (
+            <p className="text-center col-span-3 text-muted-foreground">
+              Nenhum artigo disponível no momento.
+            </p>
           ) : (
             articles.map((article) => (
-              <Card key={article.id} className="group hover:shadow-xl transition-all duration-300 hover:-translate-y-2 border-0 shadow-lg bg-white/80 dark:bg-gray-900/80 backdrop-blur-sm">
-                <div className="aspect-video overflow-hidden rounded-t-lg bg-gradient-primary flex items-center justify-center">
-                  <span className="text-white font-bold text-2xl">{article.mainKeyword}</span>
-                </div>
-                
+              <Card
+                key={article.slug}
+                className="group hover:shadow-xl transition-all duration-300 hover:-translate-y-2 border-0 shadow-lg bg-white/80 dark:bg-gray-900/80 backdrop-blur-sm"
+              >
                 <CardHeader className="space-y-4">
                   <div className="flex items-center justify-between">
                     <Badge variant="secondary" className="bg-gradient-secondary text-white">
-                      {article.mainKeyword}
+                      Blog
                     </Badge>
                     <span className="text-sm text-muted-foreground flex items-center gap-1">
-                      <Clock className="w-3 h-3" />
-                      5 min
+                      <Clock className="w-3 h-3" /> 5 min
                     </span>
                   </div>
-                  
+
                   <CardTitle className="text-xl font-bold line-clamp-2 group-hover:text-purple-brand transition-colors">
                     {article.title}
                   </CardTitle>
                 </CardHeader>
-                
+
                 <CardContent className="space-y-4">
-                  <CardDescription className="text-base line-clamp-3">
-                    {article.secondaryKeywords.slice(0, 3).join(", ")}
-                  </CardDescription>
-                  
                   <div className="flex items-center text-sm text-muted-foreground">
                     <Calendar className="w-4 h-4 mr-1" />
-                    <span>{new Date(article.createdAt).toLocaleDateString('pt-BR')}</span>
+                    <span>{new Date(article.createdAt).toLocaleDateString("pt-BR")}</span>
                   </div>
-                  
-                  <InovaaButton 
-                    variant="outline" 
-                    size="sm"
-                    className="w-full group/btn"
-                    asChild
-                  >
+
+                  <InovaaButton variant="outline" size="sm" className="w-full group/btn" asChild>
                     <Link to={`/blog/${article.slug}`}>
                       Ler Artigo
                       <ArrowRight className="w-4 h-4 transition-transform group-hover/btn:translate-x-1" />
