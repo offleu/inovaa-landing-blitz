@@ -1,7 +1,7 @@
 import fs from "fs";
 import fetch from "node-fetch";
 
-const API_KEY = "SUA_CHAVE_AQUI";
+const API_KEY = "sx7dIJ9QKfgsBJ3wilSN20yHyFu1qpBBRpbRkMR_F8s";
 
 async function gerarArtigos() {
   const res = await fetch(
