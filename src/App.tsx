@@ -4,10 +4,13 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import ScrollToTop from "./components/ScrollToTop";
+
 import Index from "./pages/Index";
 import FormularioContato from "./pages/FormularioContato";
 import Blog from "./pages/Blog";
 import BlogPost from "./pages/BlogPost";
+import NotFound from "./pages/NotFound";
+
 import ArtigoEcommerce from "./pages/ArtigoEcommerce";
 import CriacaoSiteEcommerce from "./pages/CriacaoSiteEcommerce";
 import GestaoEcommerce from "./pages/GestaoEcommerce";
@@ -15,7 +18,6 @@ import MarketingDigital from "./pages/MarketingDigital";
 import SocialMedia from "./pages/SocialMedia";
 import FerramentasIA from "./pages/FerramentasIA";
 import Microservicos from "./pages/Microservicos";
-import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
 
@@ -27,25 +29,31 @@ const App = () => (
       <BrowserRouter>
         <ScrollToTop />
         <Routes>
+          {/* Home e contato */}
           <Route path="/" element={<Index />} />
           <Route path="/formulario-contato" element={<FormularioContato />} />
+
+          {/* Blog */}
           <Route path="/blog" element={<Blog />} />
           <Route path="/blog/:slug" element={<BlogPost />} />
+
+          {/* Páginas de artigos fixos */}
           <Route path="/blog/como-criar-ecommerce-sucesso-2025" element={<ArtigoEcommerce />} />
+
+          {/* Serviços */}
           <Route path="/servicos/criacao-site-ecommerce" element={<CriacaoSiteEcommerce />} />
           <Route path="/servicos/gestao-ecommerce" element={<GestaoEcommerce />} />
           <Route path="/servicos/marketing-digital" element={<MarketingDigital />} />
           <Route path="/servicos/social-media" element={<SocialMedia />} />
           <Route path="/servicos/ferramentas-ia" element={<FerramentasIA />} />
           <Route path="/servicos/microservicos" element={<Microservicos />} />
-          {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+
+          {/* Página 404 */}
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
     </TooltipProvider>
   </QueryClientProvider>
 );
-
-
 
 export default App;
