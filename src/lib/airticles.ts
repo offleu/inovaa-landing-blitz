@@ -1,48 +1,51 @@
-const AIRTICLES_API_URL = "https://api.airticles.ai/external/obter-post";
-const AIRTICLES_API_KEY = "sx7dIJ9QKfgsBJ3wilSN20yHyFu1qpBBRpbRkMR_F8s";
-
+// lib/airticles.ts
 export interface Article {
-  id: number;
+  id?: number;
   title: string;
   slug: string;
-  status: string;
+  status?: string;
   createdAt: string;
-  updatedAt: string;
+  updatedAt?: string;
   mainKeyword: string;
   secondaryKeywords: string[];
   html: string;
-  content: any;
+  content?: any;
 }
 
-export interface ArticlesResponse {
-  projectId: number;
-  count: number;
-  items: Article[];
+export interface ArticleIndex {
+  slug: string;
+  title: string;
+  createdAt: string;
 }
 
-export async function fetchArticles(limit: number = 10, since?: string): Promise<ArticlesResponse> {
-  const params = new URLSearchParams();
-  params.append("limit", limit.toString());
-  if (since) {
-    params.append("since", since);
+/**
+ * Busca todos os artigos para a listagem do Blog.
+ * Usa o arquivo index.json gerado pelo script Node.
+ */
+export async function fetchArticles(limit: number = 50): Promise<ArticleIndex[]> {
+  try {
+    const res = await fetch("/artigos/index.json");
+    if (!res.ok) throw new Error("Não foi possível carregar os artigos");
+    const data: ArticleIndex[] = await res.json();
+    return data.slice(0, limit);
+  } catch (error) {
+    console.error("Erro ao buscar artigos:", error);
+    return [];
   }
-
-  const response = await fetch(`${AIRTICLES_API_URL}?${params.toString()}`, {
-    method: "GET",
-    headers: {
-      "X-API-Key": AIRTICLES_API_KEY,
-    },
-  });
-
-  if (!response.ok) {
-    throw new Error(`Erro ao buscar artigos: ${response.statusText}`);
-  }
-
-  return response.json();
 }
 
+/**
+ * Busca um artigo específico pelo slug.
+ * Cada artigo é armazenado como JSON individual em /public/artigos/
+ */
 export async function fetchArticleBySlug(slug: string): Promise<Article | null> {
-  const response = await fetchArticles(50);
-  const article = response.items.find((item) => item.slug === slug);
-  return article || null;
+  try {
+    const res = await fetch(`/artigos/${slug}.json`);
+    if (!res.ok) return null;
+    const data: Article = await res.json();
+    return data;
+  } catch (error) {
+    console.error("Erro ao buscar artigo pelo slug:", error);
+    return null;
+  }
 }

@@ -16,8 +16,8 @@ const Blog = () => {
   useEffect(() => {
     const loadArticles = async () => {
       try {
-        const data = await fetchArticles(50);
-        setArticles(data.items);
+        const data = await fetchArticles(50); // busca os artigos do JSON local
+        setArticles(data);
       } catch (error) {
         console.error("Erro ao carregar artigos:", error);
       } finally {
@@ -32,6 +32,7 @@ const Blog = () => {
       <div className="min-h-screen bg-gradient-to-br from-background via-background to-purple-50/20 dark:to-purple-950/20">
         <Header />
 
+        {/* Hero Section */}
         <section className="pt-20 pb-16 px-4">
           <div className="container mx-auto max-w-6xl text-center mb-16">
             <h1 className="text-4xl md:text-6xl font-bold mb-6 bg-gradient-primary bg-clip-text text-transparent">
@@ -43,6 +44,7 @@ const Blog = () => {
           </div>
         </section>
 
+        {/* Lista de artigos */}
         <main className="pb-20 px-4">
           <div className="container mx-auto max-w-6xl">
             {loading ? (
@@ -64,7 +66,10 @@ const Blog = () => {
             ) : (
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                 {articles.map((article) => (
-                  <Card key={article.id} className="group hover:shadow-xl transition-all duration-300 hover:-translate-y-2 border-0 shadow-lg bg-white/80 dark:bg-gray-900/80 backdrop-blur-sm">
+                  <Card
+                    key={article.slug}
+                    className="group hover:shadow-xl transition-all duration-300 hover:-translate-y-2 border-0 shadow-lg bg-white/80 dark:bg-gray-900/80 backdrop-blur-sm"
+                  >
                     <div className="aspect-video overflow-hidden rounded-t-lg bg-gradient-primary flex items-center justify-center">
                       <span className="text-white font-bold text-2xl">{article.mainKeyword}</span>
                     </div>
