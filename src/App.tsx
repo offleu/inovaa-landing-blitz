@@ -7,6 +7,7 @@ import ScrollToTop from "./components/ScrollToTop";
 
 import Index from "./pages/Index";
 import FormularioContato from "./pages/FormularioContato";
+import Obrigado from "./pages/Obrigado";
 import Blog from "./pages/Blog";
 import BlogPost from "./pages/BlogPost";
 import NotFound from "./pages/NotFound";
@@ -33,6 +34,7 @@ const App = () => {
             {/* Home e contato */}
             <Route path="/" element={<Index />} />
             <Route path="/formulario-contato" element={<FormularioContato />} />
+            <Route path="/obrigado" element={<Obrigado />} />
 
             {/* Blog */}
             <Route path="/blog" element={<Blog />} />
