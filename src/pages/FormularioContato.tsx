@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { z } from "zod";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import { InovaaButton } from "../components/ui/inovaa-button";
@@ -7,6 +8,29 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "../co
 import { Input } from "../components/ui/input";
 import { Label } from "../components/ui/label";
 import { toast } from "sonner";
+
+// Comprehensive validation schema with security measures
+const contactSchema = z.object({
+  nome: z.string()
+    .trim()
+    .min(2, "Nome deve ter no mínimo 2 caracteres")
+    .max(100, "Nome deve ter no máximo 100 caracteres")
+    .regex(/^[a-zA-ZÀ-ÿ\s]+$/, "Nome deve conter apenas letras e espaços"),
+  email: z.string()
+    .trim()
+    .email("Email inválido")
+    .max(255, "Email deve ter no máximo 255 caracteres")
+    .toLowerCase(),
+  telefone: z.string()
+    .trim()
+    .min(10, "Telefone deve ter no mínimo 10 dígitos")
+    .max(20, "Telefone deve ter no máximo 20 caracteres")
+    .regex(/^[\d\s\(\)\-\+]+$/, "Telefone contém caracteres inválidos"),
+  nomeNegocio: z.string()
+    .trim()
+    .min(2, "Nome do negócio deve ter no mínimo 2 caracteres")
+    .max(100, "Nome do negócio deve ter no máximo 100 caracteres")
+});
 
 const FormularioContato = () => {
   const navigate = useNavigate();
@@ -16,6 +40,7 @@ const FormularioContato = () => {
     telefone: "",
     nomeNegocio: ""
   });
+  const [errors, setErrors] = useState<Record<string, string>>({});
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -23,34 +48,59 @@ const FormularioContato = () => {
       ...prev,
       [name]: value
     }));
+    // Clear error for this field when user types
+    if (errors[name]) {
+      setErrors(prev => {
+        const newErrors = { ...prev };
+        delete newErrors[name];
+        return newErrors;
+      });
+    }
   };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    setErrors({});
     
-    // Validação básica
-    if (!formData.nome || !formData.email || !formData.telefone || !formData.nomeNegocio) {
-      toast.error("Por favor, preencha todos os campos obrigatórios.");
-      return;
-    }
-
-    // Construir mensagem para WhatsApp
-    const mensagem = `Olá! Gostaria de criar minha loja online.
+    // Comprehensive validation using Zod
+    try {
+      const validatedData = contactSchema.parse(formData);
+      
+      // Construct WhatsApp message with sanitized data
+      const mensagem = `Olá! Gostaria de criar minha loja online.
 
 *Dados de contato:*
-• Nome: ${formData.nome}
-• Email: ${formData.email}
-• Telefone: ${formData.telefone}
-• Nome do Negócio: ${formData.nomeNegocio}
+• Nome: ${validatedData.nome}
+• Email: ${validatedData.email}
+• Telefone: ${validatedData.telefone}
+• Nome do Negócio: ${validatedData.nomeNegocio}
 
 Aguardo retorno para mais informações sobre os pacotes disponíveis.`;
 
-    const whatsappUrl = `https://api.whatsapp.com/send/?phone=5514991302496&text=${encodeURIComponent(mensagem)}&type=phone_number&app_absent=0`;
-    
-    // Abrir WhatsApp
-    window.open(whatsappUrl, '_blank');
-    
-    toast.success("Redirecionando para o WhatsApp...");
+      const whatsappUrl = `https://api.whatsapp.com/send/?phone=5514991302496&text=${encodeURIComponent(mensagem)}&type=phone_number&app_absent=0`;
+      
+      // Open WhatsApp
+      window.open(whatsappUrl, '_blank');
+      
+      toast.success("Redirecionando para o WhatsApp...");
+    } catch (error) {
+      if (error instanceof z.ZodError) {
+        // Map Zod errors to field names
+        const fieldErrors: Record<string, string> = {};
+        error.errors.forEach((err) => {
+          if (err.path[0]) {
+            fieldErrors[err.path[0] as string] = err.message;
+          }
+        });
+        setErrors(fieldErrors);
+        
+        // Show first error message
+        const firstError = error.errors[0];
+        toast.error(firstError.message);
+      } else {
+        toast.error("Erro ao processar o formulário. Tente novamente.");
+      }
+    }
   };
 
   return (
@@ -95,9 +145,12 @@ Aguardo retorno para mais informações sobre os pacotes disponíveis.`;
                       placeholder="Digite seu nome completo"
                       value={formData.nome}
                       onChange={handleInputChange}
-                      className="h-12"
+                      className={`h-12 ${errors.nome ? 'border-red-500 focus-visible:ring-red-500' : ''}`}
                       required
                     />
+                    {errors.nome && (
+                      <p className="text-sm text-red-600">{errors.nome}</p>
+                    )}
                   </div>
 
                   {/* Email */}
@@ -112,9 +165,12 @@ Aguardo retorno para mais informações sobre os pacotes disponíveis.`;
                       placeholder="Digite seu melhor email"
                       value={formData.email}
                       onChange={handleInputChange}
-                      className="h-12"
+                      className={`h-12 ${errors.email ? 'border-red-500 focus-visible:ring-red-500' : ''}`}
                       required
                     />
+                    {errors.email && (
+                      <p className="text-sm text-red-600">{errors.email}</p>
+                    )}
                   </div>
 
                   {/* Telefone WhatsApp */}
@@ -129,9 +185,12 @@ Aguardo retorno para mais informações sobre os pacotes disponíveis.`;
                       placeholder="(14) 99999-9999"
                       value={formData.telefone}
                       onChange={handleInputChange}
-                      className="h-12"
+                      className={`h-12 ${errors.telefone ? 'border-red-500 focus-visible:ring-red-500' : ''}`}
                       required
                     />
+                    {errors.telefone && (
+                      <p className="text-sm text-red-600">{errors.telefone}</p>
+                    )}
                   </div>
 
                   {/* Nome do Negócio */}
@@ -146,9 +205,12 @@ Aguardo retorno para mais informações sobre os pacotes disponíveis.`;
                       placeholder="Digite o nome da sua empresa ou negócio"
                       value={formData.nomeNegocio}
                       onChange={handleInputChange}
-                      className="h-12"
+                      className={`h-12 ${errors.nomeNegocio ? 'border-red-500 focus-visible:ring-red-500' : ''}`}
                       required
                     />
+                    {errors.nomeNegocio && (
+                      <p className="text-sm text-red-600">{errors.nomeNegocio}</p>
+                    )}
                   </div>
 
                   {/* Botões */}
