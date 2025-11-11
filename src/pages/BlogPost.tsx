@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import DOMPurify from "dompurify";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import { fetchArticleBySlug, Article } from "../lib/airticles";
@@ -41,6 +42,12 @@ const BlogPost = () => {
     );
   }
 
+  // Sanitize HTML content to prevent XSS attacks
+  const sanitizedHTML = DOMPurify.sanitize(article.html, {
+    ALLOWED_TAGS: ['p', 'br', 'strong', 'em', 'u', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'ul', 'ol', 'li', 'a', 'img', 'blockquote', 'code', 'pre', 'span', 'div'],
+    ALLOWED_ATTR: ['href', 'src', 'alt', 'title', 'class', 'id', 'target', 'rel']
+  });
+
   return (
     <PageTransition>
       <div className="min-h-screen bg-background">
@@ -53,7 +60,7 @@ const BlogPost = () => {
           </p>
           <div
             className="prose dark:prose-invert"
-            dangerouslySetInnerHTML={{ __html: article.html }}
+            dangerouslySetInnerHTML={{ __html: sanitizedHTML }}
           />
         </main>
 
