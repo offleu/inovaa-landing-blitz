@@ -1,7 +1,13 @@
 import fs from "fs";
 import fetch from "node-fetch";
 
-const API_KEY = "sx7dIJ9QKfgsBJ3wilSN20yHyFu1qpBBRpbRkMR_F8s";
+const API_KEY = process.env.AIRTICLES_API_KEY;
+
+if (!API_KEY) {
+  console.error("Error: AIRTICLES_API_KEY environment variable is not set");
+  console.error("Please add AIRTICLES_API_KEY=your_key to your environment or .env file");
+  process.exit(1);
+}
 
 async function gerarArtigos() {
   const res = await fetch(
