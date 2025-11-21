@@ -30,12 +30,12 @@ const Header = () => {
   };
 
   const services = [
-    { name: "Criação de Site e E-commerce", path: "/criacao-site-ecommerce" },
-    { name: "Gestão de E-commerce", path: "/gestao-ecommerce" },
-    { name: "Marketing Digital", path: "/marketing-digital" },
-    { name: "Social Media", path: "/social-media" },
-    { name: "Ferramentas de IA", path: "/ferramentas-ia" },
-    { name: "Microserviços", path: "/microservicos" }
+    { name: "Criação de Site e E-commerce", path: "/servicos/criacao-site-ecommerce" },
+    { name: "Gestão de E-commerce", path: "/servicos/gestao-ecommerce" },
+    { name: "Marketing Digital", path: "/servicos/marketing-digital" },
+    { name: "Social Media", path: "/servicos/social-media" },
+    { name: "Ferramentas de IA", path: "/servicos/ferramentas-ia" },
+    { name: "Microserviços", path: "/servicos/microservicos" }
   ];
 
   return (
