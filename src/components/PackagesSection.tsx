@@ -2,9 +2,11 @@ import { Laptop, Package, Palette, ShoppingCart, FileText, Share2, Zap, Trending
 import { Link } from "react-router-dom";
 import { InovaaButton } from "./ui/inovaa-button";
 import { useState } from "react";
+import { useScrollAnimation } from "../hooks/useScrollAnimation";
 
 const PackagesSection = () => {
   const [selectedType, setSelectedType] = useState<"ecommerce" | "landing" | "social">("ecommerce");
+  const { elementRef, isVisible } = useScrollAnimation({ threshold: 0.1 });
 
   const packagesByType = {
     ecommerce: [
@@ -76,9 +78,9 @@ const PackagesSection = () => {
   };
 
   return (
-    <section id="pacotes" className="py-12 sm:py-16 lg:py-20 bg-gray-50">
+    <section id="pacotes" className="py-12 sm:py-16 lg:py-20 bg-gray-50" ref={elementRef}>
       <div className="container mx-auto px-4">
-        <div className="text-center mb-8 sm:mb-12">
+        <div className={`text-center mb-8 sm:mb-12 transition-all duration-700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
           <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-text-dark mb-4 px-2">
             Escolha o Pacote Ideal para Seu Negócio
           </h2>
@@ -106,7 +108,11 @@ const PackagesSection = () => {
         
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 mb-8 sm:mb-12">
           {packagesByType[selectedType].map((pkg, index) => (
-            <div key={index} className="bg-white rounded-2xl p-6 sm:p-8 shadow-card hover:shadow-lg transition-all duration-300 hover:-translate-y-2">
+            <div 
+              key={index} 
+              className={`bg-white rounded-2xl p-6 sm:p-8 shadow-card hover:shadow-lg transition-all duration-700 hover:-translate-y-2 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}
+              style={{ transitionDelay: `${index * 150}ms` }}
+            >
               <div className="text-center space-y-4 sm:space-y-6">
                 <div className="flex justify-center">
                   <div className="w-14 h-14 sm:w-16 sm:h-16 bg-gradient-primary rounded-full flex items-center justify-center">

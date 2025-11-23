@@ -22,11 +22,29 @@ const Header = () => {
   const handleServiceClick = () => {
     setIsServicesOpen(false);
     setIsMobileMenuOpen(false);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   const handleMobileMenuToggle = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
     if (isServicesOpen) setIsServicesOpen(false);
+  };
+
+  const handleAnchorClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+    e.preventDefault();
+    setIsMobileMenuOpen(false);
+    
+    const element = document.querySelector(href);
+    if (element) {
+      const headerOffset = 80;
+      const elementPosition = element.getBoundingClientRect().top;
+      const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: 'smooth'
+      });
+    }
   };
 
   const services = [
@@ -78,10 +96,18 @@ const Header = () => {
                 </div>
               )}
             </div>
-            <a href="#pacotes" className="text-sm lg:text-base text-text-gray hover:text-purple-brand transition-all duration-300 hover:scale-105">
+            <a 
+              href="#pacotes" 
+              onClick={(e) => handleAnchorClick(e, '#pacotes')}
+              className="text-sm lg:text-base text-text-gray hover:text-purple-brand transition-all duration-300 hover:scale-105"
+            >
               Pacotes
             </a>
-            <a href="#como-funciona" className="text-sm lg:text-base text-text-gray hover:text-purple-brand transition-all duration-300 hover:scale-105">
+            <a 
+              href="#como-funciona" 
+              onClick={(e) => handleAnchorClick(e, '#como-funciona')}
+              className="text-sm lg:text-base text-text-gray hover:text-purple-brand transition-all duration-300 hover:scale-105"
+            >
               Como Funciona
             </a>
             <Link to="/formulario-contato" className="text-sm lg:text-base text-text-gray hover:text-purple-brand transition-all duration-300 hover:scale-105">
@@ -132,14 +158,14 @@ const Header = () => {
 
               <a 
                 href="#pacotes" 
-                onClick={() => setIsMobileMenuOpen(false)}
+                onClick={(e) => handleAnchorClick(e, '#pacotes')}
                 className="block px-4 py-3 text-sm text-text-gray hover:text-purple-brand transition-colors"
               >
                 Pacotes
               </a>
               <a 
                 href="#como-funciona" 
-                onClick={() => setIsMobileMenuOpen(false)}
+                onClick={(e) => handleAnchorClick(e, '#como-funciona')}
                 className="block px-4 py-3 text-sm text-text-gray hover:text-purple-brand transition-colors"
               >
                 Como Funciona

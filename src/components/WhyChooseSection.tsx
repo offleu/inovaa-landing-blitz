@@ -1,6 +1,9 @@
 import { Clock, HeadphonesIcon, Award } from "lucide-react";
+import { useScrollAnimation } from "../hooks/useScrollAnimation";
 
 const WhyChooseSection = () => {
+  const { elementRef, isVisible } = useScrollAnimation({ threshold: 0.2 });
+
   const benefits = [
     {
       icon: Clock,
@@ -20,9 +23,9 @@ const WhyChooseSection = () => {
   ];
 
   return (
-    <section id="servicos" className="py-12 sm:py-16 lg:py-20 bg-white">
+    <section id="servicos" className="py-12 sm:py-16 lg:py-20 bg-white" ref={elementRef}>
       <div className="container mx-auto px-4">
-        <div className="text-center mb-12 sm:mb-16">
+        <div className={`text-center mb-12 sm:mb-16 transition-all duration-700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
           <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-text-dark mb-4">
             Por que escolher a Inovaa E-commerce?
           </h2>
@@ -30,7 +33,11 @@ const WhyChooseSection = () => {
         
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
           {benefits.map((benefit, index) => (
-            <div key={index} className="text-center space-y-4 p-4 sm:p-6">
+            <div 
+              key={index} 
+              className={`text-center space-y-4 p-4 sm:p-6 transition-all duration-700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}
+              style={{ transitionDelay: `${index * 150}ms` }}
+            >
               <div className="flex justify-center">
                 <div className="w-14 h-14 sm:w-16 sm:h-16 bg-gradient-primary rounded-full flex items-center justify-center">
                   <benefit.icon className="w-7 h-7 sm:w-8 sm:h-8 text-white" />
