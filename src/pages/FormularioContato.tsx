@@ -8,6 +8,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "../co
 import { Input } from "../components/ui/input";
 import { Label } from "../components/ui/label";
 import { toast } from "sonner";
+import { trackFormSubmit, trackConversion } from "../utils/tracking";
 
 // Comprehensive validation schema with security measures
 const contactSchema = z.object({
@@ -78,6 +79,10 @@ const FormularioContato = () => {
 Aguardo retorno para mais informações sobre os pacotes disponíveis.`;
 
       const whatsappUrl = `https://api.whatsapp.com/send/?phone=5514991302496&text=${encodeURIComponent(mensagem)}&type=phone_number&app_absent=0`;
+      
+      // Track conversion
+      trackFormSubmit();
+      trackConversion('form_lead'); // SUBSTITUIR pelo label real
       
       // Open WhatsApp
       window.open(whatsappUrl, '_blank');
