@@ -132,15 +132,35 @@ const PackagesSection = () => {
                 <p className="text-sm sm:text-base text-text-gray leading-relaxed">
                   {pkg.description}
                 </p>
+                
+                {/* CTA Buttons */}
+                <div className="flex flex-col gap-2 pt-2">
+                  <InovaaButton size="sm" className="w-full" asChild>
+                    <Link to="/formulario-contato">
+                      Solicitar Orçamento
+                    </Link>
+                  </InovaaButton>
+                  <a
+                    href="https://wa.me/5514991302496?text=Olá!%20Quero%20saber%20mais%20sobre%20o%20pacote%20de%20e-commerce"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-sm text-green-600 hover:text-green-700 font-medium text-center py-2 transition-colors"
+                  >
+                    💬 Tirar dúvidas no WhatsApp
+                  </a>
+                </div>
               </div>
             </div>
           ))}
         </div>
         
-        <div className="text-center">
+        <div className="text-center space-y-4">
+          <p className="text-sm text-text-gray">
+            🎁 <strong>Bônus Exclusivo:</strong> Primeiros clientes ganham 15% de desconto!
+          </p>
           <InovaaButton size="lg" asChild>
             <Link to="/formulario-contato">
-              Quero minha Loja Online
+              Criar Minha Loja com Desconto
             </Link>
           </InovaaButton>
         </div>
