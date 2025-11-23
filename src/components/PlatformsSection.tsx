@@ -1,14 +1,9 @@
-import nuvemshopLogo from "../assets/nuvemshop-logo.png";
-import trayLogo from "../assets/tray-logo.png";
-import yampiLogo from "../assets/yampi-logo.png";
-import shopifyLogo from "../assets/shopify-logo.svg";
-
 const PlatformsSection = () => {
   const platforms = [
-    { name: "Nuvemshop", url: "https://www.nuvemshop.com.br/", logo: nuvemshopLogo },
-    { name: "Tray", url: "https://tray.com.br/", logo: trayLogo },
-    { name: "Yampi", url: "https://www.yampi.com.br/", logo: yampiLogo },
-    { name: "Shopify", url: "https://www.shopify.com/br", logo: shopifyLogo },
+    { name: "Nuvemshop", url: "https://www.nuvemshop.com.br/" },
+    { name: "Tray", url: "https://tray.com.br/" },
+    { name: "Yampi", url: "https://www.yampi.com.br/" },
+    { name: "Shopify", url: "https://www.shopify.com/br" },
   ];
 
   // Duplicar as plataformas para criar loop infinito suave
@@ -17,7 +12,7 @@ const PlatformsSection = () => {
   return (
     <section className="py-12 sm:py-16 bg-white border-t border-gray-100">
       <div className="container mx-auto px-4">
-        <div className="text-center mb-8 sm:mb-10">
+        <div className="text-center mb-8 sm:mb-10 animate-fade-in-up">
           <h2 className="text-xl sm:text-2xl lg:text-3xl font-bold text-text-dark mb-2">
             Plataformas de E-commerce
           </h2>
@@ -44,12 +39,10 @@ const PlatformsSection = () => {
                   rel="noopener noreferrer"
                   className="block transition-transform duration-300 hover:scale-110"
                 >
-                  <div className="w-32 h-16 sm:w-40 sm:h-20 flex items-center justify-center bg-white rounded-lg border border-gray-200 hover:border-primary hover:shadow-md transition-all duration-300 p-3">
-                    <img 
-                      src={platform.logo} 
-                      alt={`${platform.name} logo`}
-                      className="w-full h-full object-contain"
-                    />
+                  <div className="px-8 py-4 sm:px-10 sm:py-5 flex items-center justify-center bg-white rounded-lg border border-gray-200 hover:border-primary hover:shadow-md transition-all duration-300">
+                    <span className="text-lg sm:text-xl font-semibold text-text-dark whitespace-nowrap">
+                      {platform.name}
+                    </span>
                   </div>
                 </a>
               </div>

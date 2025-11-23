@@ -1,8 +1,10 @@
 import { MessageCircle, Cog, CheckCircle, TrendingUp } from "lucide-react";
 import { Link } from "react-router-dom";
 import { InovaaButton } from "./ui/inovaa-button";
+import { useScrollAnimation } from "../hooks/useScrollAnimation";
 
 const HowItWorksSection = () => {
+  const { elementRef, isVisible } = useScrollAnimation({ threshold: 0.2 });
   const steps = [
     {
       icon: MessageCircle,
@@ -27,11 +29,11 @@ const HowItWorksSection = () => {
   ];
 
   return (
-    <section id="como-funciona" className="py-12 sm:py-16 lg:py-20 bg-gradient-primary relative overflow-hidden">
+    <section id="como-funciona" className="py-12 sm:py-16 lg:py-20 bg-gradient-primary relative overflow-hidden" ref={elementRef}>
       <div className="absolute inset-0 bg-black/10"></div>
       
       <div className="container mx-auto px-4 relative z-10">
-        <div className="text-center mb-12 sm:mb-16">
+        <div className={`text-center mb-12 sm:mb-16 transition-all duration-700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
           <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-white mb-4">
             Como Funciona
           </h2>
@@ -39,7 +41,11 @@ const HowItWorksSection = () => {
         
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8 mb-8 sm:mb-12">
           {steps.map((step, index) => (
-            <div key={index} className="text-center space-y-4 p-4">
+            <div 
+              key={index} 
+              className={`text-center space-y-4 p-4 transition-all duration-700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}
+              style={{ transitionDelay: `${index * 100}ms` }}
+            >
               <div className="flex justify-center">
                 <div className="w-14 h-14 sm:w-16 sm:h-16 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center border border-white/30">
                   <step.icon className="w-7 h-7 sm:w-8 sm:h-8 text-white" />
