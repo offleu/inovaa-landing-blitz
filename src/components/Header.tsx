@@ -69,7 +69,7 @@ const Header = () => {
   return (
     <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
       isScrolled 
-        ? 'bg-slate-900/80 backdrop-blur-xl border-b border-cyan-500/20 shadow-lg shadow-cyan-500/5' 
+        ? 'bg-white/30 backdrop-blur-2xl border-b border-purple-brand/20 shadow-lg shadow-purple-brand/5' 
         : 'bg-white/95 backdrop-blur-sm border-b border-gray-100'
     }`}>
       <div className="container mx-auto px-4">
@@ -90,7 +90,7 @@ const Header = () => {
               <button 
                 className={`flex items-center text-sm lg:text-base transition-all duration-300 hover:scale-105 ${
                   isScrolled 
-                    ? 'text-gray-200 hover:text-cyan-400' 
+                    ? 'text-text-dark hover:text-purple-brand font-medium' 
                     : 'text-text-gray hover:text-purple-brand'
                 }`}
                 onClick={() => setIsServicesOpen(!isServicesOpen)}
@@ -102,7 +102,7 @@ const Header = () => {
               {isServicesOpen && (
                 <div className={`absolute top-full left-0 mt-2 w-64 rounded-lg shadow-xl py-2 z-50 animate-fade-in ${
                   isScrolled
-                    ? 'bg-slate-800/95 backdrop-blur-xl border border-cyan-500/30'
+                    ? 'bg-white/80 backdrop-blur-2xl border border-purple-brand/30'
                     : 'bg-white border border-gray-100'
                 }`}>
                   {services.map((service, index) => (
@@ -112,7 +112,7 @@ const Header = () => {
                       onClick={handleServiceClick}
                       className={`block px-4 py-3 text-sm transition-all duration-300 hover:translate-x-1 ${
                         isScrolled
-                          ? 'text-gray-200 hover:text-cyan-400 hover:bg-cyan-500/10'
+                          ? 'text-text-dark hover:text-purple-brand hover:bg-purple-brand/10'
                           : 'text-text-gray hover:text-purple-brand hover:bg-gray-50'
                       }`}
                     >
@@ -127,7 +127,7 @@ const Header = () => {
               onClick={(e) => handleAnchorClick(e, '#pacotes')}
               className={`text-sm lg:text-base transition-all duration-300 hover:scale-105 ${
                 isScrolled 
-                  ? 'text-gray-200 hover:text-cyan-400' 
+                  ? 'text-text-dark hover:text-purple-brand font-medium' 
                   : 'text-text-gray hover:text-purple-brand'
               }`}
             >
@@ -138,7 +138,7 @@ const Header = () => {
               onClick={(e) => handleAnchorClick(e, '#como-funciona')}
               className={`text-sm lg:text-base transition-all duration-300 hover:scale-105 ${
                 isScrolled 
-                  ? 'text-gray-200 hover:text-cyan-400' 
+                  ? 'text-text-dark hover:text-purple-brand font-medium' 
                   : 'text-text-gray hover:text-purple-brand'
               }`}
             >
@@ -148,7 +148,7 @@ const Header = () => {
               to="/formulario-contato" 
               className={`text-sm lg:text-base transition-all duration-300 hover:scale-105 ${
                 isScrolled 
-                  ? 'text-gray-200 hover:text-cyan-400' 
+                  ? 'text-text-dark hover:text-purple-brand font-medium' 
                   : 'text-text-gray hover:text-purple-brand'
               }`}
             >
@@ -160,7 +160,7 @@ const Header = () => {
           <button 
             className={`md:hidden p-2 transition-colors ${
               isScrolled 
-                ? 'text-gray-200 hover:text-cyan-400' 
+                ? 'text-text-dark hover:text-purple-brand' 
                 : 'text-text-gray hover:text-purple-brand'
             }`}
             onClick={handleMobileMenuToggle}
@@ -178,7 +178,7 @@ const Header = () => {
         {isMobileMenuOpen && (
           <nav className={`md:hidden py-4 border-t animate-fade-in ${
             isScrolled 
-              ? 'border-cyan-500/20' 
+              ? 'border-purple-brand/20' 
               : 'border-gray-100'
           }`}>
             <div className="space-y-1">
@@ -186,7 +186,7 @@ const Header = () => {
                 onClick={() => setIsServicesOpen(!isServicesOpen)}
                 className={`w-full flex items-center justify-between px-4 py-3 text-sm transition-colors ${
                   isScrolled 
-                    ? 'text-gray-200 hover:text-cyan-400' 
+                    ? 'text-text-dark hover:text-purple-brand' 
                     : 'text-text-gray hover:text-purple-brand'
                 }`}
               >
@@ -197,7 +197,7 @@ const Header = () => {
               {isServicesOpen && (
                 <div className={`pl-4 space-y-1 rounded-lg py-2 mx-4 animate-fade-in ${
                   isScrolled 
-                    ? 'bg-cyan-500/10' 
+                    ? 'bg-purple-brand/10' 
                     : 'bg-gray-50'
                 }`}>
                   {services.map((service, index) => (
@@ -207,7 +207,7 @@ const Header = () => {
                       onClick={handleServiceClick}
                       className={`block px-4 py-2 text-sm transition-colors ${
                         isScrolled 
-                          ? 'text-gray-200 hover:text-cyan-400' 
+                          ? 'text-text-dark hover:text-purple-brand' 
                           : 'text-text-gray hover:text-purple-brand'
                       }`}
                     >
@@ -222,7 +222,7 @@ const Header = () => {
                 onClick={(e) => handleAnchorClick(e, '#pacotes')}
                 className={`block px-4 py-3 text-sm transition-colors ${
                   isScrolled 
-                    ? 'text-gray-200 hover:text-cyan-400' 
+                    ? 'text-text-dark hover:text-purple-brand' 
                     : 'text-text-gray hover:text-purple-brand'
                 }`}
               >
@@ -233,7 +233,7 @@ const Header = () => {
                 onClick={(e) => handleAnchorClick(e, '#como-funciona')}
                 className={`block px-4 py-3 text-sm transition-colors ${
                   isScrolled 
-                    ? 'text-gray-200 hover:text-cyan-400' 
+                    ? 'text-text-dark hover:text-purple-brand' 
                     : 'text-text-gray hover:text-purple-brand'
                 }`}
               >
@@ -244,7 +244,7 @@ const Header = () => {
                 onClick={() => setIsMobileMenuOpen(false)}
                 className={`block px-4 py-3 text-sm transition-colors ${
                   isScrolled 
-                    ? 'text-gray-200 hover:text-cyan-400' 
+                    ? 'text-text-dark hover:text-purple-brand' 
                     : 'text-text-gray hover:text-purple-brand'
                 }`}
               >
