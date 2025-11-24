@@ -69,16 +69,16 @@ const ChatPopup = () => {
   };
 
   return (
-    <div className="fixed bottom-24 right-6 z-40 animate-slide-up">
-      <div className="bg-white rounded-2xl shadow-2xl border border-gray-200 w-80 sm:w-96 max-w-[calc(100vw-3rem)] overflow-hidden">
+    <div className="fixed bottom-24 right-4 z-[60] animate-slide-up">
+      <div className="bg-white rounded-2xl shadow-2xl border border-gray-200 w-72 sm:w-80 max-w-[calc(100vw-2rem)] overflow-hidden">
         {/* Header */}
-        <div className="bg-gradient-primary p-4 flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <div className="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center">
-              <MessageSquare className="w-5 h-5 text-white" />
+        <div className="bg-gradient-primary p-3 flex items-center justify-between">
+          <div className="flex items-center gap-2">
+            <div className="w-8 h-8 bg-white/20 rounded-full flex items-center justify-center">
+              <MessageSquare className="w-4 h-4 text-white" />
             </div>
             <div>
-              <h3 className="text-white font-semibold text-base">
+              <h3 className="text-white font-semibold text-sm">
                 Olá! 👋
               </h3>
               <p className="text-white/90 text-xs">
@@ -96,15 +96,15 @@ const ChatPopup = () => {
         </div>
 
         {/* Body */}
-        <div className="p-4 space-y-4 bg-gray-50">
-          <div className="bg-white rounded-lg p-3 shadow-sm">
-            <p className="text-sm text-text-gray leading-relaxed">
-              Estamos aqui para te ajudar! Escolha uma das opções abaixo ou fale diretamente com um especialista.
+        <div className="p-3 space-y-3 bg-gray-50">
+          <div className="bg-white rounded-lg p-2.5 shadow-sm">
+            <p className="text-xs text-text-gray leading-relaxed">
+              Estamos aqui para te ajudar! Escolha uma opção:
             </p>
           </div>
 
           {/* Quick Options */}
-          <div className="space-y-2">
+          <div className="space-y-1.5">
             {quickOptions.map((option) => (
               <a
                 key={option.id}
@@ -112,42 +112,42 @@ const ChatPopup = () => {
                 target="_blank"
                 rel="noopener noreferrer"
                 onClick={() => handleOptionClick(option.id)}
-                className="block bg-white hover:bg-purple-50 rounded-lg p-3 transition-all duration-300 hover:shadow-md border border-gray-200 hover:border-purple-brand group"
+                className="block bg-white hover:bg-purple-50 rounded-lg p-2 transition-all duration-300 hover:shadow-md border border-gray-200 hover:border-purple-brand group"
               >
                 <div className="flex items-center justify-between">
-                  <span className="text-sm font-medium text-text-dark group-hover:text-purple-brand transition-colors">
+                  <span className="text-xs font-medium text-text-dark group-hover:text-purple-brand transition-colors">
                     {option.label}
                   </span>
-                  <Send className="w-4 h-4 text-gray-400 group-hover:text-purple-brand transition-colors" />
+                  <Send className="w-3.5 h-3.5 text-gray-400 group-hover:text-purple-brand transition-colors" />
                 </div>
               </a>
             ))}
           </div>
 
           {/* CTA Principal */}
-          <div className="pt-2 space-y-2">
+          <div className="pt-1 space-y-1.5">
             <a
               href={getWhatsAppUrl("Olá! Vim pelo site e gostaria de falar com um especialista.")}
               target="_blank"
               rel="noopener noreferrer"
-              className="block w-full bg-green-500 hover:bg-green-600 text-white rounded-lg py-3 px-4 font-semibold text-center transition-all duration-300 hover:shadow-lg flex items-center justify-center gap-2"
+              className="block w-full bg-green-500 hover:bg-green-600 text-white rounded-lg py-2 px-3 font-semibold text-center transition-all duration-300 hover:shadow-lg flex items-center justify-center gap-2 text-xs"
             >
-              <MessageSquare className="w-5 h-5" />
+              <MessageSquare className="w-4 h-4" />
               Falar no WhatsApp
             </a>
             
             <Link
               to="/formulario-contato"
               onClick={handleClose}
-              className="block w-full bg-purple-brand hover:bg-purple-dark text-white rounded-lg py-3 px-4 font-semibold text-center transition-all duration-300 hover:shadow-lg"
+              className="block w-full bg-purple-brand hover:bg-purple-dark text-white rounded-lg py-2 px-3 font-semibold text-center transition-all duration-300 hover:shadow-lg text-xs"
             >
               Preencher Formulário
             </Link>
           </div>
 
           {/* Trust Badge */}
-          <div className="text-center pt-2">
-            <p className="text-xs text-text-gray">
+          <div className="text-center pt-1">
+            <p className="text-[10px] text-text-gray">
               ⚡ Resposta em até 5 minutos
             </p>
           </div>
