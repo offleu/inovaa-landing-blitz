@@ -1,156 +1,154 @@
+// airticle-webhook.ts (Deno)
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
-import { createClient } from 'https://esm.sh/@supabase/supabase-js@2';
+import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
+import { crypto } from "https://deno.land/std@0.168.0/crypto/mod.ts";
 
 const corsHeaders = {
-  'Access-Control-Allow-Origin': '*',
-  'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type, x-api-key',
+  "Access-Control-Allow-Origin": "*",
+  "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type, x-api-key, x-signature",
+  "Content-Type": "application/json",
 };
 
-// Helper function to generate slug from title
 function generateSlug(title: string): string {
   return title
     .toLowerCase()
-    .normalize('NFD')
-    .replace(/[\u0300-\u036f]/g, '') // Remove accents
-    .replace(/[^a-z0-9\s-]/g, '') // Remove special characters
-    .replace(/\s+/g, '-') // Replace spaces with hyphens
-    .replace(/-+/g, '-') // Replace multiple hyphens with single
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "") // remove acentos
+    .replace(/[^a-z0-9\s-]/g, "") // remove chars especiais
+    .replace(/\s+/g, "-")
+    .replace(/-+/g, "-")
     .trim()
-    .replace(/^-|-$/g, ''); // Remove leading/trailing hyphens
+    .replace(/^-|-$/g, "");
+}
+
+// Gera um slug único consultando a tabela 'articles'
+async function ensureUniqueSlug(supabase: any, baseSlug: string) {
+  let slug = baseSlug;
+  let counter = 0;
+  while (true) {
+    const { data, error } = await supabase
+      .from("articles")
+      .select("id")
+      .eq("slug", slug)
+      .limit(1)
+      .maybeSingle();
+
+    if (error) {
+      // em caso de erro, quebramos para evitar loop infinito (retornamos base)
+      console.error("Erro ao checar slug único:", error);
+      return baseSlug;
+    }
+    if (!data) return slug; // slug disponível
+    counter++;
+    slug = `${baseSlug}-${counter}`;
+  }
+}
+
+async function validateHmac(bodyText: string, secret: string | null, signatureHeader: string | null) {
+  if (!secret) return true; // sem secret, não valida
+  if (!signatureHeader) return false;
+  // signature header esperado no formato hex HMAC-SHA256
+  const key = new TextEncoder().encode(secret);
+  const msg = new TextEncoder().encode(bodyText);
+  const cryptoKey = await crypto.subtle.importKey("raw", key, { name: "HMAC", hash: "SHA-256" }, false, ["sign"]);
+  const sig = await crypto.subtle.sign("HMAC", cryptoKey, msg);
+  const expected = Array.from(new Uint8Array(sig)).map((b) => b.toString(16).padStart(2, "0")).join("");
+  // comparar em tempo-constante não implementado aqui; para Deno simples use === (melhor que nada)
+  return expected === signatureHeader;
 }
 
 serve(async (req) => {
-  // Handle CORS preflight requests
-  if (req.method === 'OPTIONS') {
-    return new Response(null, { headers: corsHeaders });
-  }
+  if (req.method === "OPTIONS") return new Response(null, { headers: corsHeaders });
 
   try {
-    const AIRTICLE_API_KEY = Deno.env.get('AIRTICLE_API_KEY');
-    const SUPABASE_URL = Deno.env.get('SUPABASE_URL');
-    const SUPABASE_SERVICE_ROLE_KEY = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY');
+    const SUPABASE_URL = Deno.env.get("SUPABASE_URL")!;
+    const SUPABASE_SERVICE_ROLE_KEY = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!;
+    const AIRTICLE_API_KEY = Deno.env.get("AIRTICLE_API_KEY") || null; // opcional se quiser validar x-api-key
+    const WEBHOOK_SECRET = Deno.env.get("AIRTICLE_WEBHOOK_SECRET") || null; // mesmo secret que você cadastrou na Airticles
 
     if (!SUPABASE_URL || !SUPABASE_SERVICE_ROLE_KEY) {
-      console.error('Missing Supabase configuration');
-      throw new Error('Missing Supabase configuration');
+      throw new Error("Supabase não configurado");
     }
 
-    // Validate API key from header (optional security layer)
-    const apiKeyHeader = req.headers.get('x-api-key');
+    // opcional: validar cabeçalho de chave (se quiser)
+    const apiKeyHeader = req.headers.get("x-api-key");
     if (AIRTICLE_API_KEY && apiKeyHeader && apiKeyHeader !== AIRTICLE_API_KEY) {
-      console.error('Invalid API key');
-      return new Response(JSON.stringify({ error: 'Unauthorized' }), {
-        status: 401,
-        headers: { ...corsHeaders, 'Content-Type': 'application/json' },
-      });
+      return new Response(JSON.stringify({ error: "Unauthorized" }), { status: 401, headers: corsHeaders });
     }
 
-    // Create Supabase client with service role key to bypass RLS
+    const bodyText = await req.text();
+    // validar HMAC (se WEBHOOK_SECRET definido)
+    const signature = req.headers.get("x-signature");
+    const okHmac = await validateHmac(bodyText, WEBHOOK_SECRET, signature);
+    if (!okHmac) {
+      console.warn("HMAC inválido para payload:", bodyText.slice(0, 200));
+      return new Response(JSON.stringify({ error: "Invalid signature" }), { status: 401, headers: corsHeaders });
+    }
+
+    const payload = JSON.parse(bodyText);
+    // payload pode ser objeto de artigo
+    console.log("Webhook payload recebido:", payload.event || "<sem event>");
+
     const supabase = createClient(SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY);
 
-    const body = await req.json();
-    console.log('Received webhook payload:', JSON.stringify(body));
+    // suporte tanto a article.created quanto article.published
+    const articlePayload = payload; // aqui a Airticles envia o artigo diretamente
 
-    // Handle both single article and array of articles
-    const articles = Array.isArray(body) ? body : [body];
+    const title = articlePayload.title ?? "Sem título";
+    let slug = articlePayload.slug ?? generateSlug(title);
+    slug = await ensureUniqueSlug(supabase, slug);
 
-    const results = [];
+    const articleData = {
+      external_id: String(articlePayload.id ?? null),
+      title,
+      slug,
+      content: articlePayload.html ?? (articlePayload.content ? JSON.stringify(articlePayload.content) : ""),
+      excerpt: articlePayload.excerpt ?? articlePayload.resumo ?? null,
+      featured_image: articlePayload.featuredImage ?? articlePayload.featured_image ?? null,
+      status: (articlePayload.status ?? "pendente"),
+      author: articlePayload.author ?? null,
+      category: articlePayload.category ?? articlePayload.categoria ?? null,
+      tags: articlePayload.tags ?? [],
+      meta_description: articlePayload.metaDescription ?? articlePayload.meta_description ?? null,
+      published_at: articlePayload.publishedAt ?? articlePayload.published_at ?? null,
+    };
 
-    for (const article of articles) {
-      // Map Airticle fields to our database schema
-      const articleData = {
-        external_id: article.id || article._id || null,
-        title: article.titulo || article.title || 'Sem título',
-        slug: article.slug || generateSlug(article.titulo || article.title || 'artigo'),
-        content: article.conteudo || article.content || '',
-        excerpt: article.resumo || article.excerpt || article.descricao || '',
-        featured_image: article.imagemDestacada || article.featured_image || article.image || null,
-        status: article.status || 'pendente',
-        author: article.autor || article.author || null,
-        category: article.categoria || article.category || null,
-        tags: article.tags || [],
-        meta_description: article.metaDescricao || article.meta_description || article.resumo || '',
-        published_at: article.dataPublicacao || article.published_at || null,
-      };
+    // Upsert por external_id (se existir), senão insert/update por slug
+    if (articleData.external_id && articleData.external_id !== "null") {
+      const { data, error } = await supabase
+        .from("articles")
+        .upsert(articleData, { onConflict: "external_id" })
+        .select();
 
-      console.log('Processing article:', articleData.title);
-
-      // Upsert article (insert or update if external_id exists)
-      if (articleData.external_id) {
-        const { data, error } = await supabase
-          .from('articles')
-          .upsert(articleData, { 
-            onConflict: 'external_id',
-            ignoreDuplicates: false 
-          })
-          .select();
-
-        if (error) {
-          console.error('Error upserting article:', error);
-          results.push({ title: articleData.title, success: false, error: error.message });
-        } else {
-          console.log('Article upserted successfully:', articleData.title);
-          results.push({ title: articleData.title, success: true, data });
-        }
-      } else {
-        // If no external_id, try to match by slug or insert new
-        const { data: existing } = await supabase
-          .from('articles')
-          .select('id')
-          .eq('slug', articleData.slug)
-          .single();
-
-        if (existing) {
-          // Update existing article
-          const { data, error } = await supabase
-            .from('articles')
-            .update(articleData)
-            .eq('slug', articleData.slug)
-            .select();
-
-          if (error) {
-            console.error('Error updating article:', error);
-            results.push({ title: articleData.title, success: false, error: error.message });
-          } else {
-            console.log('Article updated successfully:', articleData.title);
-            results.push({ title: articleData.title, success: true, data });
-          }
-        } else {
-          // Insert new article
-          const { data, error } = await supabase
-            .from('articles')
-            .insert(articleData)
-            .select();
-
-          if (error) {
-            console.error('Error inserting article:', error);
-            results.push({ title: articleData.title, success: false, error: error.message });
-          } else {
-            console.log('Article inserted successfully:', articleData.title);
-            results.push({ title: articleData.title, success: true, data });
-          }
-        }
+      if (error) {
+        console.error("Erro upsert por external_id:", error);
+        return new Response(JSON.stringify({ error: error.message }), { status: 500, headers: corsHeaders });
       }
+      console.log("Upsert realizado (external_id):", articleData.title);
+      return new Response(JSON.stringify({ ok: true, action: "upsert", title: articleData.title }), { headers: corsHeaders });
     }
 
-    const successCount = results.filter(r => r.success).length;
-    const failCount = results.filter(r => !r.success).length;
-
-    console.log(`Webhook processed: ${successCount} success, ${failCount} failed`);
-
-    return new Response(JSON.stringify({ 
-      message: `Processed ${articles.length} article(s)`,
-      success: successCount,
-      failed: failCount,
-      results 
-    }), {
-      headers: { ...corsHeaders, 'Content-Type': 'application/json' },
-    });
-  } catch (error) {
-    console.error('Error in airticle-webhook function:', error);
-    return new Response(JSON.stringify({ error: error.message }), {
-      status: 500,
-      headers: { ...corsHeaders, 'Content-Type': 'application/json' },
-    });
+    // fallback: tentar por slug
+    const { data: existing } = await supabase.from("articles").select("id").eq("slug", slug).maybeSingle();
+    if (existing && existing.id) {
+      const { error } = await supabase.from("articles").update(articleData).eq("slug", slug);
+      if (error) {
+        console.error("Erro ao atualizar por slug:", error);
+        return new Response(JSON.stringify({ error: error.message }), { status: 500, headers: corsHeaders });
+      }
+      console.log("Atualizado por slug:", slug);
+      return new Response(JSON.stringify({ ok: true, action: "update", slug }), { headers: corsHeaders });
+    } else {
+      const { error } = await supabase.from("articles").insert(articleData);
+      if (error) {
+        console.error("Erro ao inserir novo artigo:", error);
+        return new Response(JSON.stringify({ error: error.message }), { status: 500, headers: corsHeaders });
+      }
+      console.log("Inserido novo artigo:", articleData.title);
+      return new Response(JSON.stringify({ ok: true, action: "insert", title: articleData.title }), { headers: corsHeaders });
+    }
+  } catch (err) {
+    console.error("Erro no webhook:", err);
+    return new Response(JSON.stringify({ error: String(err) }), { status: 500, headers: corsHeaders });
   }
 });
