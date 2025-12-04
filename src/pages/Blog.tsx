@@ -7,7 +7,25 @@ import PageTransition from "../components/PageTransition";
 import { Link } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 
-interface Article {
+interface DatabaseArticle {
+  id: string;
+  external_id: string | null;
+  title: string;
+  slug: string;
+  content: string | null;
+  excerpt: string | null;
+  featured_image: string | null;
+  status: string | null;
+  author: string | null;
+  category: string | null;
+  tags: string[] | null;
+  meta_description: string | null;
+  published_at: string | null;
+  created_at: string;
+  updated_at: string;
+}
+
+interface ApiArticle {
   id: number;
   title: string;
   slug: string;
@@ -22,12 +40,12 @@ interface Article {
 interface AirticleResponse {
   projectId: number;
   count: number;
-  items: Article[];
+  items: ApiArticle[];
   error?: string;
 }
 
 const Blog = () => {
-  const [articles, setArticles] = useState<Article[]>([]);
+  const [articles, setArticles] = useState<(DatabaseArticle | ApiArticle)[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -35,6 +53,23 @@ const Blog = () => {
     const fetchArticles = async () => {
       try {
         setLoading(true);
+        
+        // First, try to fetch from database
+        const { data: dbArticles, error: dbError } = await supabase
+          .from('articles')
+          .select('*')
+          .eq('status', 'Publicado')
+          .order('created_at', { ascending: false });
+
+        if (dbArticles && dbArticles.length > 0) {
+          console.log('Loaded articles from database:', dbArticles.length);
+          setArticles(dbArticles);
+          setLoading(false);
+          return;
+        }
+
+        // Fallback to API if database is empty
+        console.log('Database empty, falling back to API');
         const { data, error: fnError } = await supabase.functions.invoke<AirticleResponse>('airticle-articles', {
           body: null,
         });
@@ -68,9 +103,31 @@ const Blog = () => {
     });
   };
 
-  const extractExcerpt = (html: string, maxLength: number = 150) => {
-    const text = html.replace(/<[^>]*>/g, '');
-    return text.length > maxLength ? text.substring(0, maxLength) + '...' : text;
+  const extractExcerpt = (article: DatabaseArticle | ApiArticle, maxLength: number = 150) => {
+    if ('excerpt' in article && article.excerpt) {
+      return article.excerpt.length > maxLength ? article.excerpt.substring(0, maxLength) + '...' : article.excerpt;
+    }
+    if ('content' in article && article.content) {
+      const text = article.content.replace(/<[^>]*>/g, '');
+      return text.length > maxLength ? text.substring(0, maxLength) + '...' : text;
+    }
+    if ('html' in article && article.html) {
+      const text = article.html.replace(/<[^>]*>/g, '');
+      return text.length > maxLength ? text.substring(0, maxLength) + '...' : text;
+    }
+    return '';
+  };
+
+  const getArticleDate = (article: DatabaseArticle | ApiArticle) => {
+    if ('created_at' in article) return article.created_at;
+    if ('createdAt' in article) return article.createdAt;
+    return new Date().toISOString();
+  };
+
+  const getArticleKeyword = (article: DatabaseArticle | ApiArticle) => {
+    if ('category' in article && article.category) return article.category;
+    if ('mainKeyword' in article && article.mainKeyword) return article.mainKeyword;
+    return null;
   };
 
   return (
@@ -131,19 +188,19 @@ const Blog = () => {
                       </CardHeader>
                       <CardContent className="space-y-4">
                         <p className="text-muted-foreground line-clamp-3">
-                          {extractExcerpt(article.html)}
+                          {extractExcerpt(article)}
                         </p>
                         <div className="flex items-center gap-4 text-sm text-muted-foreground">
                           <div className="flex items-center">
                             <Calendar className="w-4 h-4 mr-1" />
-                            <span>{formatDate(article.createdAt)}</span>
+                            <span>{formatDate(getArticleDate(article))}</span>
                           </div>
                         </div>
-                        {article.mainKeyword && (
+                        {getArticleKeyword(article) && (
                           <div className="flex items-center gap-2 flex-wrap">
                             <Tag className="w-3 h-3 text-purple-brand" />
                             <span className="text-xs bg-purple-100 dark:bg-purple-900/30 text-purple-brand px-2 py-1 rounded-full">
-                              {article.mainKeyword}
+                              {getArticleKeyword(article)}
                             </span>
                           </div>
                         )}
