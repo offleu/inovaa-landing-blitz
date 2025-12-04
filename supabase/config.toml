@@ -1,1 +1,4 @@
 project_id = "yyebthdiocldruntabsi"
+
+[functions.airticle-articles]
+verify_jwt = false
