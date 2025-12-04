@@ -12,7 +12,6 @@ import Blog from "./pages/Blog";
 import BlogPost from "./pages/BlogPost";
 import NotFound from "./pages/NotFound";
 
-import ArtigoEcommerce from "./pages/ArtigoEcommerce";
 import CriacaoSiteEcommerce from "./pages/CriacaoSiteEcommerce";
 import GestaoEcommerce from "./pages/GestaoEcommerce";
 import MarketingDigital from "./pages/MarketingDigital";
