@@ -37,11 +37,7 @@ const App = () => {
 
             {/* Blog */}
             <Route path="/blog" element={<Blog />} />
-            {/* Rota dinâmica para artigos via slug */}
             <Route path="/blog/:slug" element={<BlogPost />} />
-
-            {/* Artigos fixos opcionais */}
-            <Route path="/blog/como-criar-ecommerce-sucesso-2025" element={<ArtigoEcommerce />} />
 
             {/* Serviços */}
             <Route path="/servicos/criacao-site-ecommerce" element={<CriacaoSiteEcommerce />} />
@@ -61,3 +57,4 @@ const App = () => {
 };
 
 export default App;
+
