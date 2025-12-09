@@ -69,7 +69,7 @@ const Header = () => {
   return (
     <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
       isScrolled 
-        ? 'bg-slate-900/80 backdrop-blur-xl border-b border-cyan-500/20 shadow-lg shadow-cyan-500/5' 
+        ? 'bg-white/70 backdrop-blur-md border-b border-purple-200/30 shadow-sm' 
         : 'bg-white/95 backdrop-blur-sm border-b border-gray-100'
     }`}>
       <div className="container mx-auto px-4">
@@ -88,11 +88,7 @@ const Header = () => {
           <nav className="hidden md:flex items-center space-x-6 lg:space-x-8">
             <div className="relative" ref={dropdownRef}>
               <button 
-                className={`flex items-center text-sm lg:text-base transition-all duration-300 hover:scale-105 ${
-                  isScrolled 
-                    ? 'text-gray-200 hover:text-cyan-400' 
-                    : 'text-text-gray hover:text-purple-brand'
-                }`}
+                className="flex items-center text-sm lg:text-base transition-all duration-300 hover:scale-105 text-text-gray hover:text-purple-brand"
                 onClick={() => setIsServicesOpen(!isServicesOpen)}
               >
                 Serviços
@@ -100,21 +96,13 @@ const Header = () => {
               </button>
               
               {isServicesOpen && (
-                <div className={`absolute top-full left-0 mt-2 w-64 rounded-lg shadow-xl py-2 z-50 animate-fade-in ${
-                  isScrolled
-                    ? 'bg-slate-800/95 backdrop-blur-xl border border-cyan-500/30'
-                    : 'bg-white border border-gray-100'
-                }`}>
+                <div className="absolute top-full left-0 mt-2 w-64 rounded-lg shadow-xl py-2 z-50 animate-fade-in bg-white/95 backdrop-blur-md border border-gray-200">
                   {services.map((service, index) => (
                     <Link
                       key={index}
                       to={service.path}
                       onClick={handleServiceClick}
-                      className={`block px-4 py-3 text-sm transition-all duration-300 hover:translate-x-1 ${
-                        isScrolled
-                          ? 'text-gray-200 hover:text-cyan-400 hover:bg-cyan-500/10'
-                          : 'text-text-gray hover:text-purple-brand hover:bg-gray-50'
-                      }`}
+                      className="block px-4 py-3 text-sm transition-all duration-300 hover:translate-x-1 text-text-gray hover:text-purple-brand hover:bg-purple-50"
                     >
                       {service.name}
                     </Link>
@@ -125,32 +113,20 @@ const Header = () => {
             <a 
               href="#pacotes" 
               onClick={(e) => handleAnchorClick(e, '#pacotes')}
-              className={`text-sm lg:text-base transition-all duration-300 hover:scale-105 ${
-                isScrolled 
-                  ? 'text-gray-200 hover:text-cyan-400' 
-                  : 'text-text-gray hover:text-purple-brand'
-              }`}
+              className="text-sm lg:text-base transition-all duration-300 hover:scale-105 text-text-gray hover:text-purple-brand"
             >
               Pacotes
             </a>
             <a 
               href="#como-funciona" 
               onClick={(e) => handleAnchorClick(e, '#como-funciona')}
-              className={`text-sm lg:text-base transition-all duration-300 hover:scale-105 ${
-                isScrolled 
-                  ? 'text-gray-200 hover:text-cyan-400' 
-                  : 'text-text-gray hover:text-purple-brand'
-              }`}
+              className="text-sm lg:text-base transition-all duration-300 hover:scale-105 text-text-gray hover:text-purple-brand"
             >
               Como Funciona
             </a>
             <Link 
               to="/formulario-contato" 
-              className={`text-sm lg:text-base transition-all duration-300 hover:scale-105 ${
-                isScrolled 
-                  ? 'text-gray-200 hover:text-cyan-400' 
-                  : 'text-text-gray hover:text-purple-brand'
-              }`}
+              className="text-sm lg:text-base transition-all duration-300 hover:scale-105 text-text-gray hover:text-purple-brand"
             >
               Contato
             </Link>
@@ -158,11 +134,7 @@ const Header = () => {
           
           {/* Mobile Menu Button */}
           <button 
-            className={`md:hidden p-2 transition-colors ${
-              isScrolled 
-                ? 'text-gray-200 hover:text-cyan-400' 
-                : 'text-text-gray hover:text-purple-brand'
-            }`}
+            className="md:hidden p-2 transition-colors text-text-gray hover:text-purple-brand"
             onClick={handleMobileMenuToggle}
             aria-label="Toggle menu"
           >
@@ -176,40 +148,24 @@ const Header = () => {
 
         {/* Mobile Menu */}
         {isMobileMenuOpen && (
-          <nav className={`md:hidden py-4 border-t animate-fade-in ${
-            isScrolled 
-              ? 'border-cyan-500/20' 
-              : 'border-gray-100'
-          }`}>
+          <nav className="md:hidden py-4 border-t animate-fade-in border-gray-100 bg-white/95 backdrop-blur-md">
             <div className="space-y-1">
               <button 
                 onClick={() => setIsServicesOpen(!isServicesOpen)}
-                className={`w-full flex items-center justify-between px-4 py-3 text-sm transition-colors ${
-                  isScrolled 
-                    ? 'text-gray-200 hover:text-cyan-400' 
-                    : 'text-text-gray hover:text-purple-brand'
-                }`}
+                className="w-full flex items-center justify-between px-4 py-3 text-sm transition-colors text-text-gray hover:text-purple-brand"
               >
                 <span>Serviços</span>
                 <ChevronDown className={`w-4 h-4 transition-transform duration-300 ${isServicesOpen ? 'rotate-180' : ''}`} />
               </button>
               
               {isServicesOpen && (
-                <div className={`pl-4 space-y-1 rounded-lg py-2 mx-4 animate-fade-in ${
-                  isScrolled 
-                    ? 'bg-cyan-500/10' 
-                    : 'bg-gray-50'
-                }`}>
+                <div className="pl-4 space-y-1 rounded-lg py-2 mx-4 animate-fade-in bg-purple-50/50">
                   {services.map((service, index) => (
                     <Link
                       key={index}
                       to={service.path}
                       onClick={handleServiceClick}
-                      className={`block px-4 py-2 text-sm transition-colors ${
-                        isScrolled 
-                          ? 'text-gray-200 hover:text-cyan-400' 
-                          : 'text-text-gray hover:text-purple-brand'
-                      }`}
+                      className="block px-4 py-2 text-sm transition-colors text-text-gray hover:text-purple-brand"
                     >
                       {service.name}
                     </Link>
@@ -220,33 +176,21 @@ const Header = () => {
               <a 
                 href="#pacotes" 
                 onClick={(e) => handleAnchorClick(e, '#pacotes')}
-                className={`block px-4 py-3 text-sm transition-colors ${
-                  isScrolled 
-                    ? 'text-gray-200 hover:text-cyan-400' 
-                    : 'text-text-gray hover:text-purple-brand'
-                }`}
+                className="block px-4 py-3 text-sm transition-colors text-text-gray hover:text-purple-brand"
               >
                 Pacotes
               </a>
               <a 
                 href="#como-funciona" 
                 onClick={(e) => handleAnchorClick(e, '#como-funciona')}
-                className={`block px-4 py-3 text-sm transition-colors ${
-                  isScrolled 
-                    ? 'text-gray-200 hover:text-cyan-400' 
-                    : 'text-text-gray hover:text-purple-brand'
-                }`}
+                className="block px-4 py-3 text-sm transition-colors text-text-gray hover:text-purple-brand"
               >
                 Como Funciona
               </a>
               <Link 
                 to="/formulario-contato" 
                 onClick={() => setIsMobileMenuOpen(false)}
-                className={`block px-4 py-3 text-sm transition-colors ${
-                  isScrolled 
-                    ? 'text-gray-200 hover:text-cyan-400' 
-                    : 'text-text-gray hover:text-purple-brand'
-                }`}
+                className="block px-4 py-3 text-sm transition-colors text-text-gray hover:text-purple-brand"
               >
                 Contato
               </Link>
