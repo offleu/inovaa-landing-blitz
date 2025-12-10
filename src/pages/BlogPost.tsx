@@ -8,7 +8,21 @@ import { Calendar, Tag, ArrowLeft, Loader2 } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import DOMPurify from "dompurify";
 
-interface Article {
+interface DatabaseArticle {
+  id: string;
+  title: string;
+  slug: string;
+  content: string | null;
+  excerpt: string | null;
+  featured_image: string | null;
+  status: string | null;
+  author: string | null;
+  category: string | null;
+  tags: string[] | null;
+  created_at: string;
+}
+
+interface ApiArticle {
   id: number;
   title: string;
   slug: string;
@@ -23,8 +37,10 @@ interface Article {
 interface AirticleResponse {
   projectId: number;
   count: number;
-  items: Article[];
+  items: ApiArticle[];
 }
+
+type Article = DatabaseArticle | ApiArticle;
 
 const BlogPost = () => {
   const location = useLocation();
@@ -39,6 +55,22 @@ const BlogPost = () => {
 
       try {
         setLoading(true);
+        
+        // First, try to fetch from database by slug
+        const { data: dbArticle, error: dbError } = await supabase
+          .from('articles')
+          .select('*')
+          .eq('slug', slug)
+          .eq('status', 'Publicado')
+          .maybeSingle();
+
+        if (dbArticle) {
+          setArticle(dbArticle);
+          setLoading(false);
+          return;
+        }
+
+        // Fallback to API if not found in database
         const { data, error: fnError } = await supabase.functions.invoke<AirticleResponse>('airticle-articles', {
           body: null,
         });
@@ -113,7 +145,34 @@ const BlogPost = () => {
     );
   }
 
-  const sanitizedHtml = DOMPurify.sanitize(article.html);
+  // Get content from either database or API article
+  const getArticleContent = () => {
+    if ('content' in article && article.content) return article.content;
+    if ('html' in article && article.html) return article.html;
+    return '';
+  };
+
+  const getArticleDate = () => {
+    if ('created_at' in article) return article.created_at;
+    if ('createdAt' in article) return article.createdAt;
+    return new Date().toISOString();
+  };
+
+  const getArticleCategory = () => {
+    if ('category' in article && article.category) return article.category;
+    if ('mainKeyword' in article && article.mainKeyword) return article.mainKeyword;
+    return null;
+  };
+
+  const getArticleTags = () => {
+    if ('tags' in article && article.tags) return article.tags;
+    if ('secondaryKeywords' in article && article.secondaryKeywords) return article.secondaryKeywords;
+    return [];
+  };
+
+  const sanitizedHtml = DOMPurify.sanitize(getArticleContent());
+  const category = getArticleCategory();
+  const tags = getArticleTags();
 
   return (
     <PageTransition>
@@ -135,21 +194,21 @@ const BlogPost = () => {
               <div className="flex flex-wrap items-center gap-4 text-muted-foreground mb-6">
                 <div className="flex items-center">
                   <Calendar className="w-4 h-4 mr-2" />
-                  <span>{formatDate(article.createdAt)}</span>
+                  <span>{formatDate(getArticleDate())}</span>
                 </div>
               </div>
 
-              {(article.mainKeyword || article.secondaryKeywords?.length > 0) && (
+              {(category || tags.length > 0) && (
                 <div className="flex items-center gap-2 flex-wrap">
                   <Tag className="w-4 h-4 text-purple-brand" />
-                  {article.mainKeyword && (
+                  {category && (
                     <span className="text-sm bg-purple-100 dark:bg-purple-900/30 text-purple-brand px-3 py-1 rounded-full">
-                      {article.mainKeyword}
+                      {category}
                     </span>
                   )}
-                  {article.secondaryKeywords?.map((keyword, index) => (
+                  {tags.map((tag, index) => (
                     <span key={index} className="text-sm bg-gray-100 dark:bg-gray-800 text-muted-foreground px-3 py-1 rounded-full">
-                      {keyword}
+                      {tag}
                     </span>
                   ))}
                 </div>
