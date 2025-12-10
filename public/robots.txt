@@ -1,6 +1,9 @@
 # Robôs permitidos
 User-agent: *
 Allow: /
+Allow: /blog/
+Allow: /blog/*
+Disallow: /obrigado
 
 # Prioridade máxima para página principal
 User-agent: Googlebot
