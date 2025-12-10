@@ -1,85 +1,69 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
-        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
-  <!-- Página Principal - Maior Prioridade -->
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://www.inovaaecommerce.com.br/</loc>
-    <lastmod>2025-01-21</lastmod>
-    <changefreq>daily</changefreq>
+    <loc>https://inovaecommerce.com.br/</loc>
+    <lastmod>2025-06-01</lastmod>
+    <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
-  
-  <!-- Páginas de Serviços -->
   <url>
-    <loc>https://www.inovaaecommerce.com.br/criacao-site-ecommerce</loc>
-    <lastmod>2025-01-21</lastmod>
-    <changefreq>weekly</changefreq>
+    <loc>https://inovaecommerce.com.br/criacao-site-ecommerce</loc>
+    <lastmod>2025-06-01</lastmod>
+    <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://www.inovaaecommerce.com.br/gestao-ecommerce</loc>
-    <lastmod>2025-01-21</lastmod>
-    <changefreq>weekly</changefreq>
+    <loc>https://inovaecommerce.com.br/gestao-ecommerce</loc>
+    <lastmod>2025-06-01</lastmod>
+    <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://www.inovaaecommerce.com.br/marketing-digital</loc>
-    <lastmod>2025-01-21</lastmod>
-    <changefreq>weekly</changefreq>
+    <loc>https://inovaecommerce.com.br/marketing-digital</loc>
+    <lastmod>2025-06-01</lastmod>
+    <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://www.inovaaecommerce.com.br/social-media</loc>
-    <lastmod>2025-01-21</lastmod>
-    <changefreq>weekly</changefreq>
+    <loc>https://inovaecommerce.com.br/social-media</loc>
+    <lastmod>2025-06-01</lastmod>
+    <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://www.inovaaecommerce.com.br/ferramentas-ia</loc>
-    <lastmod>2025-01-21</lastmod>
-    <changefreq>weekly</changefreq>
+    <loc>https://inovaecommerce.com.br/ferramentas-ia</loc>
+    <lastmod>2025-06-01</lastmod>
+    <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://www.inovaaecommerce.com.br/microservicos</loc>
-    <lastmod>2025-01-21</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
+    <loc>https://inovaecommerce.com.br/microservicos</loc>
+    <lastmod>2025-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
   </url>
-  
-  <!-- Blog -->
   <url>
-    <loc>https://www.inovaaecommerce.com.br/blog</loc>
+    <loc>https://inovaecommerce.com.br/contato</loc>
+    <lastmod>2025-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://inovaecommerce.com.br/blog</loc>
     <lastmod>2025-12-10</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://www.inovaaecommerce.com.br/blog/black-friday-ecommerce-lojistas-ignoram</loc>
+    <loc>https://inovaecommerce.com.br/blog/black-friday-ecommerce-lojistas-ignoram</loc>
+    <lastmod>2025-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://inovaecommerce.com.br/blog/diferenciese-o-que-faz-uma-loja-virtual-se-destacar</loc>
     <lastmod>2025-12-10</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://www.inovaaecommerce.com.br/blog/como-criar-ecommerce-sucesso-2025</loc>
-    <lastmod>2025-01-21</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  
-  <!-- Contato -->
-  <url>
-    <loc>https://www.inovaaecommerce.com.br/contato</loc>
-    <lastmod>2025-01-21</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <!-- Página de Agradecimento - noindex implícito -->
-  <url>
-    <loc>https://www.inovaaecommerce.com.br/obrigado</loc>
-    <lastmod>2025-01-21</lastmod>
-    <changefreq>yearly</changefreq>
-    <priority>0.1</priority>
   </url>
 </urlset>

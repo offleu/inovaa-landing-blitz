@@ -8,6 +8,48 @@ import { Calendar, Tag, ArrowLeft, Loader2 } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import DOMPurify from "dompurify";
 
+// Import article images
+import lojaVirtualUxImg from "@/assets/blog-loja-virtual-ux.jpg";
+import lojaVirtualAtendimentoImg from "@/assets/blog-loja-virtual-atendimento.jpg";
+import lojaVirtualMarketingImg from "@/assets/blog-loja-virtual-marketing.jpg";
+import lojaVirtualProdutosImg from "@/assets/blog-loja-virtual-produtos.jpg";
+import lojaVirtualDadosImg from "@/assets/blog-loja-virtual-dados.jpg";
+import lojaVirtualParceriasImg from "@/assets/blog-loja-virtual-parcerias.jpg";
+import lojaVirtualTendenciasImg from "@/assets/blog-loja-virtual-tendencias.jpg";
+
+// Map of section keywords to images for the "loja virtual" article
+const lojaVirtualImages: Record<string, string> = {
+  "experiência do usuário": lojaVirtualUxImg,
+  "atendimento ao cliente": lojaVirtualAtendimentoImg,
+  "marketing digital": lojaVirtualMarketingImg,
+  "produtos exclusivos": lojaVirtualProdutosImg,
+  "dados e análises": lojaVirtualDadosImg,
+  "parcerias e colaborações": lojaVirtualParceriasImg,
+  "tendências futuras": lojaVirtualTendenciasImg,
+};
+
+// Function to inject images into content based on section headings
+const injectImagesIntoContent = (html: string, slug: string): string => {
+  if (slug !== "diferenciese-o-que-faz-uma-loja-virtual-se-destacar") {
+    return html;
+  }
+
+  let modifiedHtml = html;
+
+  // Inject images after h2 headings
+  Object.entries(lojaVirtualImages).forEach(([keyword, imageSrc]) => {
+    const regex = new RegExp(
+      `(<h2[^>]*>[^<]*${keyword}[^<]*<\\/h2>)`,
+      "gi"
+    );
+    modifiedHtml = modifiedHtml.replace(regex, (match) => {
+      return `${match}<figure class="my-8"><img src="${imageSrc}" alt="${keyword}" class="w-full rounded-xl shadow-lg" loading="lazy" /></figure>`;
+    });
+  });
+
+  return modifiedHtml;
+};
+
 interface DatabaseArticle {
   id: string;
   title: string;
@@ -170,7 +212,8 @@ const BlogPost = () => {
     return [];
   };
 
-  const sanitizedHtml = DOMPurify.sanitize(getArticleContent());
+  const rawHtml = injectImagesIntoContent(getArticleContent(), slug || '');
+  const sanitizedHtml = DOMPurify.sanitize(rawHtml);
   const category = getArticleCategory();
   const tags = getArticleTags();
 
