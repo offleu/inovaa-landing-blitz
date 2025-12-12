@@ -16,6 +16,12 @@ import lojaVirtualProdutosImg from "@/assets/blog-loja-virtual-produtos.jpg";
 import lojaVirtualDadosImg from "@/assets/blog-loja-virtual-dados.jpg";
 import lojaVirtualParceriasImg from "@/assets/blog-loja-virtual-parcerias.jpg";
 import lojaVirtualTendenciasImg from "@/assets/blog-loja-virtual-tendencias.jpg";
+import lojaVirtualDestaqueCapaImg from "@/assets/blog-loja-virtual-destaque-capa.jpg";
+
+// Map of article slug to cover images
+const coverImages: Record<string, string> = {
+  "diferenciese-o-que-faz-uma-loja-virtual-se-destacar": lojaVirtualDestaqueCapaImg,
+};
 
 // Map of section keywords to images for the "loja virtual" article
 const lojaVirtualImages: Record<string, string> = {
@@ -257,6 +263,18 @@ const BlogPost = () => {
                 </div>
               )}
             </header>
+
+            {/* Cover image */}
+            {(coverImages[slug || ''] || ('featured_image' in article && article.featured_image)) && (
+              <figure className="mb-10">
+                <img 
+                  src={coverImages[slug || ''] || ('featured_image' in article ? article.featured_image : '')} 
+                  alt={article.title} 
+                  className="w-full rounded-2xl shadow-lg object-cover aspect-video"
+                  loading="eager"
+                />
+              </figure>
+            )}
 
             <div 
               className="prose prose-lg dark:prose-invert max-w-none
