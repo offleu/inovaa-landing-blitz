@@ -17,19 +17,19 @@ const DoubtSection = () => {
           </h2>
           
           <p className="text-xl text-text-gray leading-relaxed max-w-2xl mx-auto">
-            Nossa equipe está pronta para te ajudar a escolher o melhor pacote para seu negócio. 
-            <strong className="text-text-dark"> Atendimento em até 5 minutos!</strong>
+            Nossa equipe de consultores está pronta para analisar seu negócio e propor a melhor estratégia. 
+            <strong className="text-text-dark"> Diagnóstico gratuito!</strong>
           </p>
           
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
             <InovaaButton size="lg" className="w-full sm:w-auto min-w-[200px]" asChild>
               <Link to="/formulario-contato">
-                📋 Preencher Formulário
+                📋 Solicitar Diagnóstico
               </Link>
             </InovaaButton>
             
             <a
-              href="https://wa.me/5514991302496?text=Olá!%20Tenho%20dúvidas%20sobre%20criar%20minha%20loja%20virtual"
+              href="https://wa.me/5514991302496?text=Olá!%20Gostaria%20de%20agendar%20uma%20consultoria%20para%20meu%20e-commerce"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center justify-center gap-2 px-8 py-3 bg-green-500 hover:bg-green-600 text-white font-semibold rounded-lg transition-all duration-300 hover:scale-105 shadow-lg w-full sm:w-auto min-w-[200px]"
@@ -41,7 +41,7 @@ const DoubtSection = () => {
           {/* Urgência adicional */}
           <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4 max-w-md mx-auto">
             <p className="text-sm text-yellow-800 font-medium">
-              ⚡ <strong>Atenção:</strong> Apenas 3 vagas disponíveis este mês com desconto!
+              ⚡ <strong>Vagas limitadas:</strong> Nossa agenda de consultoria tem capacidade restrita para garantir qualidade.
             </p>
           </div>
         </div>

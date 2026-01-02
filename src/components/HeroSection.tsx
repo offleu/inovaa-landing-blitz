@@ -22,54 +22,53 @@ const HeroSection = () => {
         <div className="max-w-2xl space-y-6 sm:space-y-8 md:mr-8 mt-8 md:mt-0">
           {/* Badge de prova social */}
           <div className="inline-flex items-center gap-2 bg-white/90 backdrop-blur-sm rounded-full px-4 py-2 shadow-md">
-            <span className="text-2xl">🔥</span>
-            <span className="text-sm font-semibold text-purple-brand">+500 lojas criadas com sucesso</span>
+            <span className="text-2xl">📈</span>
+            <span className="text-sm font-semibold text-purple-brand">+500 empresas transformadas com sucesso</span>
           </div>
 
           <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-text-dark leading-tight">
-            Sua Loja Virtual{" "}
+            Consultoria Estratégica para{" "}
             <span className="bg-gradient-primary bg-clip-text text-transparent">
-              Pronta em 20 Dias
-            </span>{" "}
-            ou seu dinheiro de volta!
+              E-commerces de Alta Performance
+            </span>
           </h1>
 
           <p className="text-base sm:text-lg md:text-xl text-text-gray leading-relaxed">
-            <strong className="text-text-dark">Do zero às vendas em tempo recorde:</strong> Loja completa, design profissional, 
-            produtos cadastrados e integração com meios de pagamento. Tudo pronto para você começar a vender!
+            <strong className="text-text-dark">Transformamos sua operação digital em resultados:</strong> Análise estratégica, 
+            implementação de processos e acompanhamento contínuo para acelerar o crescimento do seu negócio online.
           </p>
 
           {/* Benefícios rápidos */}
           <div className="flex flex-wrap gap-3 sm:gap-4">
             <div className="flex items-center gap-2 bg-white/80 backdrop-blur-sm rounded-lg px-3 py-2 shadow-sm">
               <span className="text-green-500 font-bold text-lg">✓</span>
-              <span className="text-sm font-medium text-text-dark">Sem mensalidade</span>
+              <span className="text-sm font-medium text-text-dark">Metodologia comprovada</span>
             </div>
             <div className="flex items-center gap-2 bg-white/80 backdrop-blur-sm rounded-lg px-3 py-2 shadow-sm">
               <span className="text-green-500 font-bold text-lg">✓</span>
-              <span className="text-sm font-medium text-text-dark">Suporte dedicado</span>
+              <span className="text-sm font-medium text-text-dark">Consultores especializados</span>
             </div>
             <div className="flex items-center gap-2 bg-white/80 backdrop-blur-sm rounded-lg px-3 py-2 shadow-sm">
               <span className="text-green-500 font-bold text-lg">✓</span>
-              <span className="text-sm font-medium text-text-dark">Garantia total</span>
+              <span className="text-sm font-medium text-text-dark">Resultados mensuráveis</span>
             </div>
           </div>
 
           <div className="flex flex-col sm:flex-row gap-4">
             <InovaaButton size="lg" className="group" asChild>
               <Link to="/formulario-contato">
-                <span>Criar Minha Loja Agora</span>
+                <span>Agendar Diagnóstico Gratuito</span>
                 <span className="ml-2 group-hover:translate-x-1 transition-transform">→</span>
               </Link>
             </InovaaButton>
             
             <a 
-              href="https://wa.me/5514991302496?text=Olá!%20Quero%20saber%20mais%20sobre%20criar%20minha%20loja%20virtual"
+              href="https://wa.me/5514991302496?text=Olá!%20Gostaria%20de%20agendar%20uma%20consultoria%20para%20meu%20e-commerce"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-green-500 hover:bg-green-600 text-white font-semibold rounded-lg transition-all duration-300 hover:scale-105 shadow-lg"
             >
-              💬 Falar com Especialista
+              💬 Falar com Consultor
             </a>
           </div>
 

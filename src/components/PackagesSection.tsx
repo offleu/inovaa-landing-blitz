@@ -12,21 +12,21 @@ const PackagesSection = () => {
     ecommerce: [
       {
         icon: Laptop,
-        title: "Básico",
+        title: "Diagnóstico",
         price: "R$ 1.490,00",
-        description: "Loja virtual completa com até 50 produtos, design responsivo e integração de pagamento."
+        description: "Análise completa do seu e-commerce com relatório detalhado de oportunidades, gargalos e plano de ação estratégico."
       },
       {
         icon: ShoppingCart,
-        title: "Profissional",
+        title: "Consultoria",
         price: "R$ 2.990,00",
-        description: "Loja avançada com produtos ilimitados, sistema de cupons, gestão completa e integrações premium."
+        description: "Acompanhamento mensal com reuniões estratégicas, implementação de melhorias e monitoramento de KPIs."
       },
       {
         icon: Zap,
-        title: "Premium",
+        title: "Transformação",
         price: "R$ 4.990,00",
-        description: "E-commerce completo com IA, automações, app mobile, gestão avançada e suporte prioritário."
+        description: "Consultoria executiva completa com squad dedicado, implementação de processos e gestão de performance."
       }
     ],
     landing: [
@@ -82,10 +82,10 @@ const PackagesSection = () => {
       <div className="container mx-auto px-4">
         <div className={`text-center mb-8 sm:mb-12 transition-all duration-700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
           <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-text-dark mb-4 px-2">
-            Escolha o Pacote Ideal para Seu Negócio
+            Soluções de Consultoria para Seu E-commerce
           </h2>
           <p className="text-base sm:text-lg text-text-gray max-w-2xl mx-auto mb-8">
-            Selecione o tipo de serviço e encontre o plano perfeito
+            Selecione a área de atuação e encontre a consultoria ideal
           </p>
 
           {/* Type Selector */}
@@ -156,11 +156,11 @@ const PackagesSection = () => {
         
         <div className="text-center space-y-4">
           <p className="text-sm text-text-gray">
-            🎁 <strong>Bônus Exclusivo:</strong> Primeiros clientes ganham 15% de desconto!
+            📊 <strong>Diagnóstico Gratuito:</strong> Agende uma análise inicial sem compromisso!
           </p>
           <InovaaButton size="lg" asChild>
             <Link to="/formulario-contato">
-              Criar Minha Loja com Desconto
+              Agendar Meu Diagnóstico
             </Link>
           </InovaaButton>
         </div>
