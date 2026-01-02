@@ -8,23 +8,23 @@ const HowItWorksSection = () => {
   const steps = [
     {
       icon: MessageCircle,
-      title: "Você nos conta sua ideia",
-      description: "Conte-nos sobre sua ideia e necessidades específicas para o seu e-commerce"
+      title: "Diagnóstico Inicial",
+      description: "Analisamos seu e-commerce, identificamos oportunidades e mapeamos os principais desafios"
     },
     {
       icon: Cog,
-      title: "Desenvolvemos sua loja",
-      description: "Nossa equipe desenvolve toda a loja virtual e design personalizado"
+      title: "Plano Estratégico",
+      description: "Desenvolvemos um plano de ação personalizado com metas claras e cronograma definido"
     },
     {
       icon: CheckCircle,
-      title: "Loja pronta para vender",
-      description: "Loja configurada, produtos cadastrados e completamente pronta para vendas"
+      title: "Implementação Guiada",
+      description: "Acompanhamos a execução das estratégias com reuniões periódicas e ajustes contínuos"
     },
     {
       icon: TrendingUp,
-      title: "Acompanhamos você",
-      description: "Te acompanhamos nas primeiras etapas para garantir seu sucesso"
+      title: "Crescimento Sustentável",
+      description: "Monitoramos resultados e otimizamos processos para garantir crescimento consistente"
     }
   ];
 
@@ -72,7 +72,7 @@ const HowItWorksSection = () => {
         <div className="text-center">
           <InovaaButton variant="yellow" size="lg" asChild>
             <Link to="/formulario-contato">
-              Quero minha Loja Online
+              Iniciar Minha Consultoria
             </Link>
           </InovaaButton>
         </div>

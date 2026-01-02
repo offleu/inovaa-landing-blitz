@@ -7,18 +7,18 @@ const WhyChooseSection = () => {
   const benefits = [
     {
       icon: Clock,
-      title: "Loja 100% pronta para vender em até 20 dias",
-      description: "Desenvolvimento completo da sua loja virtual com design profissional e todas as funcionalidades necessárias para começar a vender imediatamente."
+      title: "Diagnóstico estratégico completo",
+      description: "Análise aprofundada do seu negócio digital para identificar oportunidades de crescimento, gargalos operacionais e estratégias de otimização."
     },
     {
       icon: HeadphonesIcon,
-      title: "Suporte eficiente e acompanhamento de tarefas",
-      description: "Nossa equipe oferece suporte dedicado durante todo o processo, com acompanhamento detalhado de cada etapa do desenvolvimento."
+      title: "Acompanhamento executivo contínuo",
+      description: "Consultores dedicados que monitoram métricas, ajustam estratégias e garantem a implementação correta de cada etapa do plano de ação."
     },
     {
       icon: Award,
-      title: "Serviços individualizados de qualidade",
-      description: "Cada projeto é único e desenvolvido especialmente para o seu negócio, garantindo uma solução personalizada e de alta qualidade."
+      title: "Soluções personalizadas e mensuráveis",
+      description: "Cada consultoria é desenvolvida sob medida para seu negócio, com metas claras, KPIs definidos e relatórios de performance."
     }
   ];
 
@@ -27,7 +27,7 @@ const WhyChooseSection = () => {
       <div className="container mx-auto px-4">
         <div className={`text-center mb-12 sm:mb-16 transition-all duration-700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
           <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-text-dark mb-4">
-            Por que escolher a Inovaa E-commerce?
+            Por que escolher a Inovaa Consultoria?
           </h2>
         </div>
         

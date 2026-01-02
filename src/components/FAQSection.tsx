@@ -8,36 +8,36 @@ const FAQSection = () => {
 
   const faqs = [
     {
-      question: "Quanto tempo leva para criar minha loja virtual?",
-      answer: "Sua loja fica pronta em até 20 dias úteis, ou seu dinheiro de volta! Trabalhamos com prazos garantidos para que você possa começar a vender o mais rápido possível."
+      question: "Como funciona o processo de consultoria?",
+      answer: "Iniciamos com um diagnóstico completo do seu e-commerce, analisando métricas, processos e oportunidades. Em seguida, desenvolvemos um plano estratégico personalizado e acompanhamos a implementação com reuniões periódicas."
     },
     {
-      question: "Quais plataformas vocês trabalham?",
-      answer: "Trabalhamos com as principais plataformas do mercado: Nuvemshop, Tray, Yampi, Shopify e outras plataformas personalizadas. Escolhemos a melhor opção de acordo com as necessidades do seu negócio."
+      question: "Quais áreas do e-commerce vocês atendem?",
+      answer: "Nossa consultoria abrange todas as dimensões do e-commerce: estratégia de vendas, gestão de operações, marketing digital, experiência do cliente, tecnologia e integração de sistemas, análise de dados e otimização de conversão."
     },
     {
-      question: "O que está incluso nos pacotes?",
-      answer: "Todos os pacotes incluem: design profissional personalizado, cadastro de produtos, integração com meios de pagamento, configuração de frete, SEO básico, treinamento completo e suporte dedicado. Os pacotes superiores incluem funcionalidades avançadas e mais produtos."
+      question: "O que está incluso nos planos de consultoria?",
+      answer: "Todos os planos incluem: diagnóstico estratégico, plano de ação personalizado, reuniões de acompanhamento, acesso a metodologias exclusivas, relatórios de performance e suporte direto com consultores especializados."
     },
     {
-      question: "Vocês fazem o cadastro dos produtos?",
-      answer: "Sim! Cuidamos do cadastro completo dos produtos, incluindo fotos, descrições, preços, variações e categorias. Você só precisa nos fornecer as informações e materiais."
+      question: "Vocês trabalham com quais plataformas de e-commerce?",
+      answer: "Temos expertise nas principais plataformas do mercado: Nuvemshop, Tray, Yampi, Shopify, VTEX, entre outras. Nossa consultoria é agnóstica e focada em resultados, independente da tecnologia utilizada."
     },
     {
-      question: "Preciso pagar mensalidade da plataforma?",
-      answer: "Nossos pacotes cobrem o desenvolvimento da loja. As plataformas de e-commerce (Nuvemshop, Shopify, etc) têm suas próprias mensalidades que variam de acordo com o plano escolhido. Te ajudamos a escolher a melhor opção custo-benefício."
+      question: "Qual o tempo médio para ver resultados?",
+      answer: "Os primeiros resultados geralmente aparecem entre 30 e 90 dias, dependendo da complexidade do negócio e das ações implementadas. Trabalhamos com metas progressivas e mensuráveis desde o início."
     },
     {
-      question: "Vocês dão suporte após a entrega?",
-      answer: "Sim! Oferecemos treinamento completo para você gerenciar sua loja e suporte dedicado durante e após o desenvolvimento. Também oferecemos planos de manutenção e gestão contínua."
+      question: "Vocês oferecem suporte contínuo após a consultoria?",
+      answer: "Sim! Oferecemos planos de acompanhamento mensal para garantir a continuidade das estratégias implementadas, ajustes baseados em performance e evolução constante do seu e-commerce."
     },
     {
-      question: "Como funciona a garantia de devolução?",
-      answer: "Se sua loja não ficar pronta em 20 dias úteis conforme acordado, devolvemos 100% do valor investido. Trabalhamos com total transparência e comprometimento com prazos."
+      question: "Como é definido o investimento na consultoria?",
+      answer: "O investimento é personalizado de acordo com o tamanho do negócio, escopo da consultoria e duração do acompanhamento. Após o diagnóstico inicial, apresentamos uma proposta detalhada com valores e entregas."
     },
     {
-      question: "Posso fazer alterações depois que a loja estiver pronta?",
-      answer: "Sim! Você terá total autonomia para fazer alterações através do painel administrativo da plataforma. Também oferecemos serviços de manutenção e customizações adicionais caso precise."
+      question: "Vocês atendem empresas de qual porte?",
+      answer: "Atendemos desde e-commerces em fase de estruturação até operações consolidadas que buscam escalar. Nossa metodologia se adapta às necessidades específicas de cada estágio do negócio."
     }
   ];
 
@@ -97,12 +97,12 @@ const FAQSection = () => {
         <div className="text-center mt-12">
           <p className="text-text-gray mb-4">Não encontrou sua resposta?</p>
           <a
-            href="https://wa.me/5514991302496?text=Olá!%20Tenho%20uma%20dúvida%20sobre%20os%20serviços"
+            href="https://wa.me/5514991302496?text=Olá!%20Gostaria%20de%20saber%20mais%20sobre%20a%20consultoria%20para%20e-commerce"
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center gap-2 px-6 py-3 bg-green-500 hover:bg-green-600 text-white font-semibold rounded-lg transition-all duration-300 hover:scale-105"
           >
-            💬 Falar com Especialista
+            💬 Falar com Consultor
           </a>
         </div>
       </div>
