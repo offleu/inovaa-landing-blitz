@@ -19,6 +19,9 @@ import SocialMedia from "./pages/SocialMedia";
 import FerramentasIA from "./pages/FerramentasIA";
 import Microservicos from "./pages/Microservicos";
 
+import AdminLogin from "./pages/AdminLogin";
+import AdminArtigos from "./pages/AdminArtigos";
+
 const queryClient = new QueryClient();
 
 const App = () => {
@@ -38,6 +41,10 @@ const App = () => {
             {/* Blog */}
             <Route path="/blog" element={<Blog />} />
             <Route path="/blog/:slug" element={<BlogPost />} />
+
+            {/* Admin */}
+            <Route path="/admin" element={<AdminLogin />} />
+            <Route path="/admin/artigos" element={<AdminArtigos />} />
 
             {/* Serviços */}
             <Route path="/servicos/criacao-site-ecommerce" element={<CriacaoSiteEcommerce />} />
