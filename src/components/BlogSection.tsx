@@ -161,21 +161,21 @@ const BlogSection = () => {
   };
 
   return (
-    <section className="py-20 bg-gradient-to-br from-background via-background to-purple-50/20 dark:to-purple-950/20" ref={elementRef}>
+    <section className="py-12 sm:py-16 lg:py-20 bg-gradient-to-br from-background via-background to-purple-50/20 dark:to-purple-950/20" ref={elementRef}>
       <div className="container mx-auto px-4">
-        <div className={`text-center mb-16 transition-all duration-700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
-          <h2 className="text-3xl md:text-4xl font-bold mb-6">
+        <div className={`text-center mb-8 sm:mb-12 lg:mb-16 transition-all duration-700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4 sm:mb-6 px-2">
             Notícias e{" "}
             <span className="bg-gradient-primary bg-clip-text text-transparent">
               Artigos
             </span>
           </h2>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Fique por dentro das últimas tendências em e-commerce, design e marketing digital
+          <p className="text-sm sm:text-base lg:text-lg text-muted-foreground max-w-2xl mx-auto px-2">
+            Fique por dentro das últimas tendências em e-commerce e marketing digital
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8 mb-8 sm:mb-12">
           {loading ? (
             <div className="col-span-full flex flex-col items-center justify-center py-12">
               <Loader2 className="w-8 h-8 animate-spin text-purple-brand mb-3" />

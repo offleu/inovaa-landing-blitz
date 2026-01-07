@@ -89,12 +89,12 @@ const PackagesSection = () => {
           </p>
 
           {/* Type Selector */}
-          <div className="flex flex-wrap justify-center gap-3 sm:gap-4 mb-8">
+          <div className="flex flex-wrap justify-center gap-2 sm:gap-3 mb-6 sm:mb-8 px-2">
             {(Object.keys(packagesByType) as Array<keyof typeof packagesByType>).map((type) => (
               <button
                 key={type}
                 onClick={() => setSelectedType(type)}
-                className={`px-6 py-3 rounded-full font-semibold transition-all duration-300 ${
+                className={`px-4 sm:px-6 py-2 sm:py-3 rounded-full font-semibold text-sm sm:text-base transition-all duration-300 ${
                   selectedType === type
                     ? "bg-gradient-primary text-white shadow-lg scale-105"
                     : "bg-white text-text-dark hover:shadow-md"
@@ -154,11 +154,11 @@ const PackagesSection = () => {
           ))}
         </div>
         
-        <div className="text-center space-y-4">
-          <p className="text-sm text-text-gray">
+        <div className="text-center space-y-3 sm:space-y-4 px-2">
+          <p className="text-xs sm:text-sm text-text-gray">
             📊 <strong>Diagnóstico Gratuito:</strong> Agende uma análise inicial sem compromisso!
           </p>
-          <InovaaButton size="lg" asChild>
+          <InovaaButton size="default" className="w-full sm:w-auto" asChild>
             <Link to="/formulario-contato">
               Agendar Meu Diagnóstico
             </Link>
