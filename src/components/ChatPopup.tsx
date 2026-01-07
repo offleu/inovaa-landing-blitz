@@ -69,8 +69,8 @@ const ChatPopup = () => {
   };
 
   return (
-    <div className="fixed bottom-24 right-4 z-[60] animate-slide-up">
-      <div className="bg-white rounded-2xl shadow-2xl border border-gray-200 w-72 sm:w-80 max-w-[calc(100vw-2rem)] overflow-hidden">
+    <div className="fixed bottom-20 sm:bottom-24 right-3 sm:right-4 z-[60] animate-slide-up">
+      <div className="bg-white rounded-2xl shadow-2xl border border-gray-200 w-[calc(100vw-1.5rem)] max-w-72 sm:max-w-80 overflow-hidden">
         {/* Header */}
         <div className="bg-gradient-primary p-3 flex items-center justify-between">
           <div className="flex items-center gap-2">

@@ -33,21 +33,21 @@ const UrgencyBanner = () => {
   }, []);
 
   return (
-    <div className="bg-gradient-to-r from-yellow-400 via-orange-400 to-red-400 text-white py-3 px-4 sticky top-0 z-50 shadow-lg">
+    <div className="bg-gradient-to-r from-yellow-400 via-orange-400 to-red-400 text-white py-2 sm:py-3 px-3 sm:px-4 sticky top-0 z-50 shadow-lg">
       <div className="container mx-auto">
-        <div className="flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-4 text-center">
-          <div className="flex items-center gap-2">
-            <Sparkles className="w-5 h-5 animate-pulse" />
-            <span className="font-bold text-sm sm:text-base">
-              OFERTA ESPECIAL!
+        <div className="flex items-center justify-center gap-2 sm:gap-4 text-center">
+          <div className="flex items-center gap-1.5 sm:gap-2">
+            <Sparkles className="w-4 h-4 sm:w-5 sm:h-5 animate-pulse flex-shrink-0" />
+            <span className="font-bold text-xs sm:text-sm md:text-base whitespace-nowrap">
+              OFERTA!
             </span>
           </div>
           
-          <span className="text-xs sm:text-sm font-medium">
-            Ganhe 15% de desconto em qualquer pacote
+          <span className="text-xs sm:text-sm font-medium truncate">
+            15% de desconto em qualquer pacote
           </span>
           
-          <div className="hidden sm:flex items-center gap-2 bg-white/20 backdrop-blur-sm rounded-full px-3 py-1">
+          <div className="hidden sm:flex items-center gap-2 bg-white/20 backdrop-blur-sm rounded-full px-3 py-1 flex-shrink-0">
             <TrendingUp className="w-4 h-4" />
             <div className="flex gap-1 font-mono font-bold text-sm">
               <span>{String(timeLeft.hours).padStart(2, '0')}h</span>

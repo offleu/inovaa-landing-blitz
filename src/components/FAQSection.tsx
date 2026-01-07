@@ -94,13 +94,13 @@ const FAQSection = () => {
           ))}
         </div>
 
-        <div className="text-center mt-12">
-          <p className="text-text-gray mb-4">Não encontrou sua resposta?</p>
+        <div className="text-center mt-8 sm:mt-12 px-2">
+          <p className="text-text-gray mb-3 sm:mb-4 text-sm sm:text-base">Não encontrou sua resposta?</p>
           <a
             href="https://wa.me/5514991302496?text=Olá!%20Gostaria%20de%20saber%20mais%20sobre%20a%20consultoria%20para%20e-commerce"
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 px-6 py-3 bg-green-500 hover:bg-green-600 text-white font-semibold rounded-lg transition-all duration-300 hover:scale-105"
+            className="inline-flex items-center gap-2 px-5 sm:px-6 py-2.5 sm:py-3 bg-green-500 hover:bg-green-600 text-white font-semibold rounded-lg transition-all duration-300 hover:scale-105 text-sm sm:text-base"
           >
             💬 Falar com Consultor
           </a>
