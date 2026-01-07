@@ -47,7 +47,7 @@ const UrgencyBanner = () => {
             Ganhe 15% de desconto em qualquer pacote
           </span>
           
-          <div className="flex items-center gap-2 bg-white/20 backdrop-blur-sm rounded-full px-3 py-1">
+          <div className="hidden sm:flex items-center gap-2 bg-white/20 backdrop-blur-sm rounded-full px-3 py-1">
             <TrendingUp className="w-4 h-4" />
             <div className="flex gap-1 font-mono font-bold text-sm">
               <span>{String(timeLeft.hours).padStart(2, '0')}h</span>
