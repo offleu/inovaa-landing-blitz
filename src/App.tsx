@@ -14,8 +14,7 @@ import NotFound from "./pages/NotFound";
 
 import CriacaoSiteEcommerce from "./pages/CriacaoSiteEcommerce";
 import GestaoEcommerce from "./pages/GestaoEcommerce";
-import MarketingDigital from "./pages/MarketingDigital";
-import SocialMedia from "./pages/SocialMedia";
+import Treinamentos from "./pages/Treinamentos";
 import FerramentasIA from "./pages/FerramentasIA";
 import Microservicos from "./pages/Microservicos";
 
@@ -49,8 +48,7 @@ const App = () => {
             {/* Serviços */}
             <Route path="/servicos/criacao-site-ecommerce" element={<CriacaoSiteEcommerce />} />
             <Route path="/servicos/gestao-ecommerce" element={<GestaoEcommerce />} />
-            <Route path="/servicos/marketing-digital" element={<MarketingDigital />} />
-            <Route path="/servicos/social-media" element={<SocialMedia />} />
+            <Route path="/servicos/treinamentos" element={<Treinamentos />} />
             <Route path="/servicos/ferramentas-ia" element={<FerramentasIA />} />
             <Route path="/servicos/microservicos" element={<Microservicos />} />
 
