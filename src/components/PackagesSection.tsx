@@ -1,11 +1,11 @@
-import { Laptop, Package, Palette, ShoppingCart, FileText, Share2, Zap, TrendingUp, Heart } from "lucide-react";
+import { Laptop, ShoppingCart, Zap, GraduationCap, TrendingUp, Settings } from "lucide-react";
 import { Link } from "react-router-dom";
 import { InovaaButton } from "./ui/inovaa-button";
 import { useState } from "react";
 import { useScrollAnimation } from "../hooks/useScrollAnimation";
 
 const PackagesSection = () => {
-  const [selectedType, setSelectedType] = useState<"ecommerce" | "landing" | "social">("ecommerce");
+  const [selectedType, setSelectedType] = useState<"ecommerce" | "treinamentos">("ecommerce");
   const { elementRef, isVisible } = useScrollAnimation({ threshold: 0.1 });
 
   const packagesByType = {
@@ -29,52 +29,31 @@ const PackagesSection = () => {
         description: "Consultoria executiva completa com squad dedicado, implementação de processos e gestão de performance."
       }
     ],
-    landing: [
-      {
-        icon: FileText,
-        title: "Essencial",
-        price: "R$ 890,00",
-        description: "Landing page otimizada para conversão com design profissional e formulário de contato integrado."
-      },
+    treinamentos: [
       {
         icon: TrendingUp,
-        title: "Avançada",
+        title: "Vendas",
+        price: "R$ 1.290,00",
+        description: "Treinamento em técnicas avançadas de vendas para e-commerce, funil de conversão e atendimento consultivo."
+      },
+      {
+        icon: Settings,
+        title: "Sistemas de Gestão",
+        price: "R$ 1.890,00",
+        description: "Capacitação em ERPs, gestão de estoque, controle financeiro e integração entre sistemas."
+      },
+      {
+        icon: GraduationCap,
+        title: "Plataformas",
         price: "R$ 1.590,00",
-        description: "Landing page com múltiplas seções, animações, integração com CRM e otimização SEO avançada."
-      },
-      {
-        icon: Heart,
-        title: "Completa",
-        price: "R$ 2.490,00",
-        description: "Landing page premium com A/B testing, analytics avançado, chat integrado e automações de marketing."
-      }
-    ],
-    social: [
-      {
-        icon: Share2,
-        title: "Starter",
-        price: "R$ 490,00",
-        description: "Gestão de 1 rede social com 12 posts mensais e design de templates personalizados."
-      },
-      {
-        icon: Palette,
-        title: "Pro",
-        price: "R$ 890,00",
-        description: "Gestão de 2 redes sociais com 20 posts mensais, stories e planejamento estratégico."
-      },
-      {
-        icon: Package,
-        title: "Premium",
-        price: "R$ 1.490,00",
-        description: "Gestão completa de 3 redes sociais com 30 posts, stories, reels e relatórios mensais."
+        description: "Domine Nuvemshop, Tray, Shopify e Yampi com treinamento prático e hands-on."
       }
     ]
   };
 
   const typeLabels = {
     ecommerce: "E-commerce",
-    landing: "Landing Page",
-    social: "Mídias Sociais"
+    treinamentos: "Treinamentos Especializados"
   };
 
   return (
