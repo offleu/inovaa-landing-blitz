@@ -1,5 +1,4 @@
 import Header from "../components/Header";
-import UrgencyBanner from "../components/UrgencyBanner";
 import HeroSection from "../components/HeroSection";
 import TrustBadges from "../components/TrustBadges";
 import WhyChooseSection from "../components/WhyChooseSection";
@@ -17,7 +16,6 @@ import Footer from "../components/Footer";
 const Index = () => {
   return (
     <div className="min-h-screen">
-      <UrgencyBanner />
       <Header />
       <main className="pt-14 sm:pt-16">
         <HeroSection />
