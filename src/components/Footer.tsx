@@ -23,7 +23,7 @@ const Footer = () => {
                 <p><span className="font-semibold">Razão Social:</span> Inovaa Consultoria Empresarial</p>
               </div>
               <div className="text-center">
-                <p><span className="font-semibold">Endereço:</span> Rua Ribeirão Preto, 460</p>
+                <p><span className="font-semibold">Endereço:</span> Rua Alcindo Saul Amaral, 135</p>
                 <p>Marília, SP - CEP: 17510-190</p>
               </div>
             </div>
