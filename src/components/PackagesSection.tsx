@@ -39,7 +39,7 @@ const PackagesSection = () => {
       {
         icon: Settings,
         title: "Sistemas de Gestão",
-        price: "R$ 1.890,00",
+        price: "R$ 2.147,00",
         description: "Capacitação em ERPs, gestão de estoque, controle financeiro e integração entre sistemas."
       },
       {
