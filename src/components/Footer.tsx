@@ -24,7 +24,7 @@ const Footer = () => {
               </div>
               <div className="text-center">
                 <p><span className="font-semibold">Endereço:</span> Rua Alcindo Saul Amaral, 135</p>
-                <p>Marília, SP - CEP: 17510-190</p>
+                <p>Marília, SP - CEP: 17520-183</p>
               </div>
             </div>
             
