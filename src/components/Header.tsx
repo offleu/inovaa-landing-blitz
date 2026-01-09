@@ -60,8 +60,7 @@ const Header = () => {
   const services = [
     { name: "Consultoria Estratégica", path: "/servicos/criacao-site-ecommerce" },
     { name: "Gestão de E-commerce", path: "/servicos/gestao-ecommerce" },
-    { name: "Marketing Digital", path: "/servicos/marketing-digital" },
-    { name: "Social Media", path: "/servicos/social-media" },
+    { name: "Treinamentos", path: "/servicos/treinamentos" },
     { name: "Automação e IA", path: "/servicos/ferramentas-ia" },
     { name: "Integrações e Sistemas", path: "/servicos/microservicos" }
   ];
