@@ -68,7 +68,7 @@ const FormularioContato = () => {
       const validatedData = contactSchema.parse(formData);
       
       // Construct WhatsApp message with sanitized data
-      const mensagem = `Olá! Gostaria de criar minha loja online.
+      const mensagem = `Olá! Gostaria de solicitar um atendimento.
 
 *Dados de contato:*
 • Nome: ${validatedData.nome}
@@ -76,7 +76,7 @@ const FormularioContato = () => {
 • Telefone: ${validatedData.telefone}
 • Nome do Negócio: ${validatedData.nomeNegocio}
 
-Aguardo retorno para mais informações sobre os pacotes disponíveis.`;
+Aguardo retorno para mais informações.`;
 
       const whatsappUrl = `https://api.whatsapp.com/send/?phone=5514991302496&text=${encodeURIComponent(mensagem)}&type=phone_number&app_absent=0`;
       
@@ -118,7 +118,7 @@ Aguardo retorno para mais informações sobre os pacotes disponíveis.`;
             {/* Header da página */}
             <div className="text-center mb-8">
               <h1 className="text-3xl sm:text-4xl font-bold text-text-dark mb-4">
-                Solicite sua Loja Online
+                Solicite um Atendimento
               </h1>
               <p className="text-lg text-text-gray">
                 Preencha os dados abaixo e entraremos em contato via WhatsApp para apresentar as melhores soluções para seu negócio.
