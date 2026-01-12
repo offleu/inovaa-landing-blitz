@@ -7,6 +7,16 @@ import PageTransition from "../components/PageTransition";
 import { Link } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 
+// SEO Meta Tags for Blog
+const updateBlogMeta = () => {
+  document.title = "Blog E-commerce | Dicas de Vendas e Gestão para Loja Virtual - Inovaa Marília SP";
+  
+  const metaDescription = document.querySelector('meta[name="description"]');
+  if (metaDescription) {
+    metaDescription.setAttribute("content", "Blog sobre e-commerce em Marília SP. Dicas de vendas, gestão de loja virtual, marketing digital e tendências do mercado. Conteúdo especializado da Inovaa Consultoria.");
+  }
+};
+
 interface DatabaseArticle {
   id: string;
   external_id: string | null;
@@ -48,6 +58,10 @@ const Blog = () => {
   const [articles, setArticles] = useState<(DatabaseArticle | ApiArticle)[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    updateBlogMeta();
+  }, []);
 
   useEffect(() => {
     const fetchArticles = async () => {

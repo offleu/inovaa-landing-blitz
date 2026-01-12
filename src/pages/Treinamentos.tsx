@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import WhatsAppButton from "../components/WhatsAppButton";
@@ -5,6 +6,14 @@ import { Link } from "react-router-dom";
 import { GraduationCap, TrendingUp, Settings, Monitor, Users, Target, CheckCircle, ArrowRight } from "lucide-react";
 
 const Treinamentos = () => {
+  useEffect(() => {
+    document.title = "Treinamentos E-commerce em Marília SP | Vendas, Gestão e Plataformas - Inovaa";
+    
+    const metaDescription = document.querySelector('meta[name="description"]');
+    if (metaDescription) {
+      metaDescription.setAttribute("content", "Treinamentos especializados para e-commerce em Marília SP. Capacitação em vendas, sistemas de gestão (ERP) e plataformas como Nuvemshop, Shopify, Tray. Metodologia prática!");
+    }
+  }, []);
   const treinamentos = [
     {
       icon: TrendingUp,
