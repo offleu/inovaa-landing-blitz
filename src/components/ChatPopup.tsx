@@ -42,24 +42,19 @@ const ChatPopup = () => {
 
   const quickOptions = [
     { 
-      id: "pricing", 
-      label: "Preços e Pacotes",
-      message: "Quero saber mais sobre os pacotes e preços"
+      id: "how-it-works", 
+      label: "Como Funciona",
+      message: "Olá! Gostaria de saber como funciona a consultoria da Inovaa"
     },
     { 
-      id: "ecommerce", 
-      label: "Criar E-commerce",
-      message: "Preciso criar uma loja virtual"
+      id: "consultoria", 
+      label: "Agendar Consultoria",
+      message: "Olá! Gostaria de agendar uma consultoria"
     },
     { 
-      id: "landing", 
-      label: "Landing Page",
-      message: "Quero uma landing page"
-    },
-    { 
-      id: "marketing", 
-      label: "Marketing Digital",
-      message: "Interesse em marketing digital"
+      id: "treinamento", 
+      label: "Agendar Treinamento",
+      message: "Olá! Gostaria de agendar um treinamento"
     }
   ];
 
