@@ -5,6 +5,7 @@ import TrustBadges from "../components/TrustBadges";
 import WhyChooseSection from "../components/WhyChooseSection";
 import PackagesSection from "../components/PackagesSection";
 import HowItWorksSection from "../components/HowItWorksSection";
+import TestimonialsSection from "../components/TestimonialsSection";
 import FAQSection from "../components/FAQSection";
 import BlogSection from "../components/BlogSection";
 import DoubtSection from "../components/DoubtSection";
@@ -32,6 +33,7 @@ const Index = () => {
         <WhyChooseSection />
         <PackagesSection />
         <HowItWorksSection />
+        <TestimonialsSection />
         <FAQSection />
         <BlogSection />
         <DoubtSection />
