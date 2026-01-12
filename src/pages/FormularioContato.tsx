@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { z } from "zod";
 import Header from "../components/Header";
@@ -9,6 +9,16 @@ import { Input } from "../components/ui/input";
 import { Label } from "../components/ui/label";
 import { toast } from "sonner";
 import { trackFormSubmit, trackConversion } from "../utils/tracking";
+
+// SEO Meta Tags
+const updateContactMeta = () => {
+  document.title = "Contato | Agende sua Consultoria E-commerce em Marília SP - Inovaa";
+  
+  const metaDescription = document.querySelector('meta[name="description"]');
+  if (metaDescription) {
+    metaDescription.setAttribute("content", "Entre em contato com a Inovaa Consultoria em Marília SP. Agende sua consultoria gratuita para e-commerce, treinamentos ou diagnóstico empresarial. Resposta em até 24h!");
+  }
+};
 
 // Comprehensive validation schema with security measures
 const contactSchema = z.object({
@@ -42,6 +52,10 @@ const FormularioContato = () => {
     nomeNegocio: ""
   });
   const [errors, setErrors] = useState<Record<string, string>>({});
+
+  useEffect(() => {
+    updateContactMeta();
+  }, []);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;

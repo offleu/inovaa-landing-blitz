@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { InovaaButton } from "@/components/ui/inovaa-button";
@@ -5,6 +6,14 @@ import { CheckCircle, Code, Palette, Smartphone, Globe, Zap, ShoppingCart, Credi
 import { Link } from "react-router-dom";
 
 const CriacaoSiteEcommerce = () => {
+  useEffect(() => {
+    document.title = "Criação de Loja Virtual em Marília SP | Sites E-commerce Profissionais - Inovaa";
+    
+    const metaDescription = document.querySelector('meta[name="description"]');
+    if (metaDescription) {
+      metaDescription.setAttribute("content", "Criação de sites e lojas virtuais em Marília SP. Design responsivo, integração com pagamentos e gestão completa. Consultoria especializada para seu e-commerce.");
+    }
+  }, []);
   const features = [
     {
       icon: ShoppingCart,

@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { InovaaButton } from "@/components/ui/inovaa-button";
@@ -5,6 +6,14 @@ import { BarChart, TrendingUp, Users, Target, Shield, Lightbulb, Clock, Zap, Awa
 import { Link } from "react-router-dom";
 
 const GestaoEcommerce = () => {
+  useEffect(() => {
+    document.title = "Gestão de E-commerce em Marília SP | Consultoria para Lojas Virtuais - Inovaa";
+    
+    const metaDescription = document.querySelector('meta[name="description"]');
+    if (metaDescription) {
+      metaDescription.setAttribute("content", "Gestão completa de e-commerce em Marília SP. Monitoramento, otimização de vendas, estratégias de conversão e consultoria mensal. Resultados mensuráveis para seu negócio.");
+    }
+  }, []);
   const benefits = [
     {
       icon: Clock,
