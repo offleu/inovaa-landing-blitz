@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
+import RichTextEditor from "@/components/RichTextEditor";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { useToast } from "@/hooks/use-toast";
 import { LogOut, FileText, Eye, Send, Image, Upload, X, Loader2 } from "lucide-react";
@@ -196,7 +197,7 @@ const AdminArtigos = () => {
         title,
         slug,
         excerpt,
-        content: formatContent(content),
+        content: content,
         featured_image: imageUrl,
         category: category || null,
         tags: tagsArray.length > 0 ? tagsArray : null,
@@ -249,51 +250,6 @@ const AdminArtigos = () => {
     }
   };
 
-  // Formata o conteúdo para HTML com estrutura padrão do blog
-  const formatContent = (rawContent: string) => {
-    const paragraphs = rawContent.split("\n\n").filter((p) => p.trim());
-    
-    return paragraphs
-      .map((p) => {
-        const trimmed = p.trim();
-        
-        // Headers
-        if (trimmed.startsWith("### ")) {
-          return `<h3>${trimmed.substring(4)}</h3>`;
-        }
-        if (trimmed.startsWith("## ")) {
-          return `<h2>${trimmed.substring(3)}</h2>`;
-        }
-        if (trimmed.startsWith("# ")) {
-          return `<h1>${trimmed.substring(2)}</h1>`;
-        }
-        
-        // Lists
-        if (trimmed.includes("\n- ") || trimmed.startsWith("- ")) {
-          const items = trimmed
-            .split("\n")
-            .filter((line) => line.startsWith("- "))
-            .map((line) => `<li>${line.substring(2)}</li>`)
-            .join("");
-          return `<ul>${items}</ul>`;
-        }
-        
-        // Bold text
-        let formatted = trimmed.replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>");
-        
-        // Italic text
-        formatted = formatted.replace(/\*(.*?)\*/g, "<em>$1</em>");
-        
-        // Links
-        formatted = formatted.replace(
-          /\[([^\]]+)\]\(([^)]+)\)/g,
-          '<a href="$2" target="_blank" rel="noopener noreferrer">$1</a>'
-        );
-        
-        return `<p>${formatted}</p>`;
-      })
-      .join("\n");
-  };
 
   const previewSlug = slug || "preview";
 
@@ -520,7 +476,7 @@ const AdminArtigos = () => {
             <CardHeader>
               <CardTitle>Conteúdo</CardTitle>
               <CardDescription>
-                Escreva o conteúdo do artigo usando formatação simples
+                Use a barra de ferramentas para formatar o texto como no Word
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
@@ -537,36 +493,11 @@ const AdminArtigos = () => {
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="content">Conteúdo do Artigo *</Label>
-                <div className="bg-muted/50 rounded-lg p-3 mb-2 text-xs text-muted-foreground space-y-1">
-                  <p><strong>Formatação:</strong></p>
-                  <p>## Título grande (H2) | ### Subtítulo (H3)</p>
-                  <p>**texto em negrito** | *texto em itálico*</p>
-                  <p>- item de lista | [texto](url) para links</p>
-                  <p>Parágrafos separados por linha em branco</p>
-                </div>
-                <Textarea
-                  id="content"
-                  placeholder={`## Introdução
-
-Escreva aqui o conteúdo do seu artigo...
-
-## Primeira Seção
-
-Desenvolva suas ideias aqui. Use **negrito** para destacar palavras importantes.
-
-- Ponto importante 1
-- Ponto importante 2
-- Ponto importante 3
-
-## Conclusão
-
-Finalize seu artigo com uma chamada para ação.`}
-                  value={content}
-                  onChange={(e) => setContent(e.target.value)}
-                  rows={20}
-                  className="font-mono text-sm"
-                  required
+                <Label>Conteúdo do Artigo *</Label>
+                <RichTextEditor
+                  content={content}
+                  onChange={setContent}
+                  placeholder="Comece a escrever seu artigo aqui..."
                 />
               </div>
             </CardContent>
