@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
@@ -7,7 +7,7 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { useToast } from "@/hooks/use-toast";
-import { ArrowLeft, LogOut, FileText, Eye, Send, Image } from "lucide-react";
+import { LogOut, FileText, Eye, Send, Image, Upload, X, Loader2 } from "lucide-react";
 import { Link } from "react-router-dom";
 import inovaaLogo from "@/assets/inovaa-logo.png";
 
@@ -28,6 +28,10 @@ const AdminArtigos = () => {
   const [tags, setTags] = useState("");
   const [metaDescription, setMetaDescription] = useState("");
   const [author, setAuthor] = useState("Equipe Inovaa");
+  const [imageFile, setImageFile] = useState<File | null>(null);
+  const [imagePreview, setImagePreview] = useState<string | null>(null);
+  const [uploadingImage, setUploadingImage] = useState(false);
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     const { data: { subscription } } = supabase.auth.onAuthStateChange(
@@ -95,11 +99,94 @@ const AdminArtigos = () => {
     setSlug(generateSlug(value));
   };
 
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      // Validate file type
+      const validTypes = ['image/jpeg', 'image/png', 'image/webp', 'image/gif'];
+      if (!validTypes.includes(file.type)) {
+        toast({
+          title: "Formato inválido",
+          description: "Use imagens JPG, PNG, WebP ou GIF.",
+          variant: "destructive",
+        });
+        return;
+      }
+
+      // Validate file size (5MB)
+      if (file.size > 5 * 1024 * 1024) {
+        toast({
+          title: "Arquivo muito grande",
+          description: "O tamanho máximo é 5MB.",
+          variant: "destructive",
+        });
+        return;
+      }
+
+      setImageFile(file);
+      setFeaturedImage(""); // Clear URL input when file is selected
+      
+      // Create preview
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setImagePreview(reader.result as string);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
+  const removeImage = () => {
+    setImageFile(null);
+    setImagePreview(null);
+    setFeaturedImage("");
+    if (fileInputRef.current) {
+      fileInputRef.current.value = "";
+    }
+  };
+
+  const uploadImage = async (): Promise<string | null> => {
+    if (!imageFile) return featuredImage || null;
+
+    setUploadingImage(true);
+    try {
+      const fileExt = imageFile.name.split('.').pop();
+      const fileName = `${slug || Date.now()}-${Date.now()}.${fileExt}`;
+      const filePath = `covers/${fileName}`;
+
+      const { error: uploadError } = await supabase.storage
+        .from('article-images')
+        .upload(filePath, imageFile, {
+          cacheControl: '3600',
+          upsert: false
+        });
+
+      if (uploadError) throw uploadError;
+
+      const { data: { publicUrl } } = supabase.storage
+        .from('article-images')
+        .getPublicUrl(filePath);
+
+      return publicUrl;
+    } catch (error: any) {
+      toast({
+        title: "Erro no upload",
+        description: error.message || "Não foi possível fazer upload da imagem.",
+        variant: "destructive",
+      });
+      return null;
+    } finally {
+      setUploadingImage(false);
+    }
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setSubmitting(true);
 
     try {
+      // Upload image first if file is selected
+      const imageUrl = await uploadImage();
+
       const tagsArray = tags
         .split(",")
         .map((tag) => tag.trim())
@@ -110,7 +197,7 @@ const AdminArtigos = () => {
         slug,
         excerpt,
         content: formatContent(content),
-        featured_image: featuredImage || null,
+        featured_image: imageUrl,
         category: category || null,
         tags: tagsArray.length > 0 ? tagsArray : null,
         meta_description: metaDescription || excerpt.substring(0, 160),
@@ -146,6 +233,11 @@ const AdminArtigos = () => {
       setCategory("");
       setTags("");
       setMetaDescription("");
+      setImageFile(null);
+      setImagePreview(null);
+      if (fileInputRef.current) {
+        fileInputRef.current.value = "";
+      }
     } catch (err: any) {
       toast({
         title: "Erro ao publicar",
@@ -333,10 +425,50 @@ const AdminArtigos = () => {
                 Imagem de Capa
               </CardTitle>
               <CardDescription>
-                URL da imagem principal do artigo
+                Faça upload de uma imagem JPG, PNG, WebP ou GIF (máx. 5MB)
               </CardDescription>
             </CardHeader>
-            <CardContent>
+            <CardContent className="space-y-4">
+              {/* Upload de arquivo */}
+              <div className="space-y-2">
+                <Label>Upload de Imagem</Label>
+                <div className="flex items-center gap-4">
+                  <input
+                    ref={fileInputRef}
+                    type="file"
+                    accept="image/jpeg,image/png,image/webp,image/gif"
+                    onChange={handleFileChange}
+                    className="hidden"
+                    id="image-upload"
+                  />
+                  <Button
+                    type="button"
+                    variant="outline"
+                    onClick={() => fileInputRef.current?.click()}
+                    className="gap-2"
+                    disabled={uploadingImage}
+                  >
+                    <Upload className="h-4 w-4" />
+                    Selecionar Imagem
+                  </Button>
+                  {imageFile && (
+                    <span className="text-sm text-muted-foreground truncate max-w-[200px]">
+                      {imageFile.name}
+                    </span>
+                  )}
+                </div>
+              </div>
+
+              {/* Ou URL */}
+              <div className="relative">
+                <div className="absolute inset-0 flex items-center">
+                  <span className="w-full border-t border-border" />
+                </div>
+                <div className="relative flex justify-center text-xs uppercase">
+                  <span className="bg-card px-2 text-muted-foreground">ou cole uma URL</span>
+                </div>
+              </div>
+
               <div className="space-y-2">
                 <Label htmlFor="featuredImage">URL da Imagem</Label>
                 <Input
@@ -344,22 +476,40 @@ const AdminArtigos = () => {
                   type="url"
                   placeholder="https://exemplo.com/imagem.jpg"
                   value={featuredImage}
-                  onChange={(e) => setFeaturedImage(e.target.value)}
+                  onChange={(e) => {
+                    setFeaturedImage(e.target.value);
+                    if (e.target.value) {
+                      setImageFile(null);
+                      setImagePreview(null);
+                      if (fileInputRef.current) {
+                        fileInputRef.current.value = "";
+                      }
+                    }
+                  }}
+                  disabled={!!imageFile}
                 />
-                <p className="text-xs text-muted-foreground">
-                  Use uma URL de imagem pública (ex: Unsplash, Imgur)
-                </p>
               </div>
-              {featuredImage && (
-                <div className="mt-4">
+
+              {/* Preview */}
+              {(imagePreview || featuredImage) && (
+                <div className="relative inline-block mt-4">
                   <img
-                    src={featuredImage}
+                    src={imagePreview || featuredImage}
                     alt="Preview"
-                    className="max-h-48 rounded-lg object-cover"
+                    className="max-h-48 rounded-lg object-cover border border-border"
                     onError={(e) => {
                       e.currentTarget.style.display = "none";
                     }}
                   />
+                  <Button
+                    type="button"
+                    variant="destructive"
+                    size="icon"
+                    className="absolute -top-2 -right-2 h-6 w-6"
+                    onClick={removeImage}
+                  >
+                    <X className="h-3 w-3" />
+                  </Button>
                 </div>
               )}
             </CardContent>
@@ -462,11 +612,15 @@ Finalize seu artigo com uma chamada para ação.`}
             )}
             <Button
               type="submit"
-              disabled={submitting || !title || !excerpt || !content}
+              disabled={submitting || uploadingImage || !title || !excerpt || !content}
               className="gap-2"
             >
-              <Send className="h-4 w-4" />
-              {submitting ? "Publicando..." : "Publicar Artigo"}
+              {(submitting || uploadingImage) ? (
+                <Loader2 className="h-4 w-4 animate-spin" />
+              ) : (
+                <Send className="h-4 w-4" />
+              )}
+              {uploadingImage ? "Enviando imagem..." : submitting ? "Publicando..." : "Publicar Artigo"}
             </Button>
           </div>
         </form>
