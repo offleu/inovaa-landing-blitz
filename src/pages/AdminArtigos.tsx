@@ -8,7 +8,7 @@ import { Textarea } from "@/components/ui/textarea";
 import RichTextEditor from "@/components/RichTextEditor";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { useToast } from "@/hooks/use-toast";
-import { LogOut, FileText, Eye, Send, Image, Upload, X, Loader2 } from "lucide-react";
+import { LogOut, FileText, Eye, Send, Image, Upload, X, Loader2, BarChart3 } from "lucide-react";
 import { Link } from "react-router-dom";
 import inovaaLogo from "@/assets/inovaa-logo.png";
 
@@ -278,6 +278,15 @@ const AdminArtigos = () => {
             <span className="text-sm text-muted-foreground hidden sm:block">
               {user?.email}
             </span>
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={() => navigate("/admin/dashboard")}
+              className="gap-2"
+            >
+              <BarChart3 className="h-4 w-4" />
+              Dashboard
+            </Button>
             <Button
               variant="outline"
               size="sm"

@@ -20,6 +20,7 @@ import Microservicos from "./pages/Microservicos";
 
 import AdminLogin from "./pages/AdminLogin";
 import AdminArtigos from "./pages/AdminArtigos";
+import AdminDashboard from "./pages/AdminDashboard";
 
 const queryClient = new QueryClient();
 
@@ -44,6 +45,7 @@ const App = () => {
             {/* Admin */}
             <Route path="/admin" element={<AdminLogin />} />
             <Route path="/admin/artigos" element={<AdminArtigos />} />
+            <Route path="/admin/dashboard" element={<AdminDashboard />} />
 
             {/* Serviços */}
             <Route path="/servicos/criacao-site-ecommerce" element={<CriacaoSiteEcommerce />} />
