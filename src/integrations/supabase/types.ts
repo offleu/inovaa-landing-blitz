@@ -68,6 +68,78 @@ export type Database = {
         }
         Relationships: []
       }
+      contracts: {
+        Row: {
+          client_email: string | null
+          client_name: string
+          client_phone: string | null
+          contract_date: string
+          contract_value: number
+          created_at: string
+          id: string
+          notes: string | null
+          payment_status: string
+          service_description: string
+          updated_at: string
+        }
+        Insert: {
+          client_email?: string | null
+          client_name: string
+          client_phone?: string | null
+          contract_date?: string
+          contract_value: number
+          created_at?: string
+          id?: string
+          notes?: string | null
+          payment_status?: string
+          service_description: string
+          updated_at?: string
+        }
+        Update: {
+          client_email?: string | null
+          client_name?: string
+          client_phone?: string | null
+          contract_date?: string
+          contract_value?: number
+          created_at?: string
+          id?: string
+          notes?: string | null
+          payment_status?: string
+          service_description?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      goals: {
+        Row: {
+          created_at: string
+          goal_type: string
+          goal_value: number
+          id: string
+          month: number | null
+          updated_at: string
+          year: number
+        }
+        Insert: {
+          created_at?: string
+          goal_type: string
+          goal_value: number
+          id?: string
+          month?: number | null
+          updated_at?: string
+          year: number
+        }
+        Update: {
+          created_at?: string
+          goal_type?: string
+          goal_value?: number
+          id?: string
+          month?: number | null
+          updated_at?: string
+          year?: number
+        }
+        Relationships: []
+      }
       user_roles: {
         Row: {
           created_at: string
