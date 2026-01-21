@@ -8,9 +8,27 @@ import { Textarea } from "@/components/ui/textarea";
 import RichTextEditor from "@/components/RichTextEditor";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { useToast } from "@/hooks/use-toast";
-import { LogOut, FileText, Eye, Send, Image, Upload, X, Loader2, BarChart3 } from "lucide-react";
+import { LogOut, FileText, Eye, Send, Image, Upload, X, Loader2, BarChart3, Calendar, Clock, List, Pencil, Trash2 } from "lucide-react";
 import { Link } from "react-router-dom";
 import inovaaLogo from "@/assets/inovaa-logo.png";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import { Badge } from "@/components/ui/badge";
+import { Switch } from "@/components/ui/switch";
+import { format } from "date-fns";
+import { ptBR } from "date-fns/locale";
+import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from "@/components/ui/alert-dialog";
+
+interface Article {
+  id: string;
+  title: string;
+  slug: string;
+  status: string | null;
+  published_at: string | null;
+  created_at: string;
+  category: string | null;
+  author: string | null;
+}
 
 const AdminArtigos = () => {
   const [loading, setLoading] = useState(true);
@@ -33,6 +51,15 @@ const AdminArtigos = () => {
   const [imagePreview, setImagePreview] = useState<string | null>(null);
   const [uploadingImage, setUploadingImage] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
+
+  // Scheduling state
+  const [isScheduled, setIsScheduled] = useState(false);
+  const [scheduledDate, setScheduledDate] = useState("");
+  const [scheduledTime, setScheduledTime] = useState("");
+
+  // Articles list state
+  const [articles, setArticles] = useState<Article[]>([]);
+  const [loadingArticles, setLoadingArticles] = useState(false);
 
   useEffect(() => {
     const { data: { subscription } } = supabase.auth.onAuthStateChange(
@@ -180,6 +207,29 @@ const AdminArtigos = () => {
     }
   };
 
+  const fetchArticles = async () => {
+    setLoadingArticles(true);
+    try {
+      const { data, error } = await supabase
+        .from("articles")
+        .select("id, title, slug, status, published_at, created_at, category, author")
+        .order("created_at", { ascending: false });
+
+      if (error) throw error;
+      setArticles(data || []);
+    } catch (err: any) {
+      console.error("Error fetching articles:", err);
+    } finally {
+      setLoadingArticles(false);
+    }
+  };
+
+  useEffect(() => {
+    if (!loading) {
+      fetchArticles();
+    }
+  }, [loading]);
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setSubmitting(true);
@@ -193,6 +243,18 @@ const AdminArtigos = () => {
         .map((tag) => tag.trim())
         .filter((tag) => tag.length > 0);
 
+      // Calculate publish date
+      let publishDate: string | null = null;
+      let status = "Publicado";
+
+      if (isScheduled && scheduledDate && scheduledTime) {
+        const scheduledDateTime = new Date(`${scheduledDate}T${scheduledTime}`);
+        publishDate = scheduledDateTime.toISOString();
+        status = scheduledDateTime > new Date() ? "Agendado" : "Publicado";
+      } else {
+        publishDate = new Date().toISOString();
+      }
+
       const { error } = await supabase.from("articles").insert({
         title,
         slug,
@@ -203,8 +265,8 @@ const AdminArtigos = () => {
         tags: tagsArray.length > 0 ? tagsArray : null,
         meta_description: metaDescription || excerpt.substring(0, 160),
         author,
-        status: "Publicado",
-        published_at: new Date().toISOString(),
+        status,
+        published_at: publishDate,
       });
 
       if (error) {
@@ -221,8 +283,10 @@ const AdminArtigos = () => {
       }
 
       toast({
-        title: "Artigo publicado!",
-        description: "Seu artigo foi publicado com sucesso no blog.",
+        title: isScheduled ? "Artigo agendado!" : "Artigo publicado!",
+        description: isScheduled 
+          ? `Seu artigo será publicado em ${format(new Date(`${scheduledDate}T${scheduledTime}`), "dd/MM/yyyy 'às' HH:mm", { locale: ptBR })}.`
+          : "Seu artigo foi publicado com sucesso no blog.",
       });
 
       // Reset form
@@ -236,9 +300,15 @@ const AdminArtigos = () => {
       setMetaDescription("");
       setImageFile(null);
       setImagePreview(null);
+      setIsScheduled(false);
+      setScheduledDate("");
+      setScheduledTime("");
       if (fileInputRef.current) {
         fileInputRef.current.value = "";
       }
+
+      // Refresh articles list
+      fetchArticles();
     } catch (err: any) {
       toast({
         title: "Erro ao publicar",
@@ -248,6 +318,38 @@ const AdminArtigos = () => {
     } finally {
       setSubmitting(false);
     }
+  };
+
+  const deleteArticle = async (id: string) => {
+    try {
+      const { error } = await supabase.from("articles").delete().eq("id", id);
+      if (error) throw error;
+      
+      toast({
+        title: "Artigo excluído",
+        description: "O artigo foi removido com sucesso.",
+      });
+      fetchArticles();
+    } catch (err: any) {
+      toast({
+        title: "Erro ao excluir",
+        description: err.message || "Não foi possível excluir o artigo.",
+        variant: "destructive",
+      });
+    }
+  };
+
+  const getStatusBadge = (status: string | null, publishedAt: string | null) => {
+    if (status === "Agendado" && publishedAt) {
+      const scheduledDate = new Date(publishedAt);
+      if (scheduledDate > new Date()) {
+        return <Badge variant="secondary" className="bg-accent/50 text-accent-foreground">Agendado</Badge>;
+      }
+    }
+    if (status === "Publicado") {
+      return <Badge variant="default" className="bg-primary/20 text-primary border-primary/30">Publicado</Badge>;
+    }
+    return <Badge variant="outline" className="bg-muted text-muted-foreground">{status || "Rascunho"}</Badge>;
   };
 
 
@@ -301,15 +403,29 @@ const AdminArtigos = () => {
       </header>
 
       {/* Main Content */}
-      <main className="container mx-auto px-4 py-8 max-w-4xl">
+      <main className="container mx-auto px-4 py-8 max-w-5xl">
         <div className="mb-8">
           <h1 className="text-3xl font-bold text-foreground mb-2">
-            Criar Novo Artigo
+            Gerenciador de Artigos
           </h1>
           <p className="text-muted-foreground">
-            Preencha as informações abaixo para publicar um novo artigo no blog.
+            Crie, agende e gerencie os artigos do blog.
           </p>
         </div>
+
+        <Tabs defaultValue="create" className="space-y-6">
+          <TabsList className="grid w-full grid-cols-2">
+            <TabsTrigger value="create" className="gap-2">
+              <FileText className="h-4 w-4" />
+              Criar Artigo
+            </TabsTrigger>
+            <TabsTrigger value="list" className="gap-2">
+              <List className="h-4 w-4" />
+              Artigos Publicados
+            </TabsTrigger>
+          </TabsList>
+
+          <TabsContent value="create" className="space-y-6">
 
         <form onSubmit={handleSubmit} className="space-y-6">
           {/* Informações Básicas */}
@@ -512,6 +628,61 @@ const AdminArtigos = () => {
             </CardContent>
           </Card>
 
+          {/* Scheduling */}
+          <Card>
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <Calendar className="h-5 w-5" />
+                Agendamento
+              </CardTitle>
+              <CardDescription>
+                Agende a publicação para uma data e hora futuras
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <div className="flex items-center gap-4">
+                <Switch
+                  id="schedule"
+                  checked={isScheduled}
+                  onCheckedChange={setIsScheduled}
+                />
+                <Label htmlFor="schedule">Agendar publicação</Label>
+              </div>
+
+              {isScheduled && (
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
+                  <div className="space-y-2">
+                    <Label htmlFor="scheduledDate" className="flex items-center gap-2">
+                      <Calendar className="h-4 w-4" />
+                      Data
+                    </Label>
+                    <Input
+                      id="scheduledDate"
+                      type="date"
+                      value={scheduledDate}
+                      onChange={(e) => setScheduledDate(e.target.value)}
+                      min={format(new Date(), "yyyy-MM-dd")}
+                      required={isScheduled}
+                    />
+                  </div>
+                  <div className="space-y-2">
+                    <Label htmlFor="scheduledTime" className="flex items-center gap-2">
+                      <Clock className="h-4 w-4" />
+                      Horário
+                    </Label>
+                    <Input
+                      id="scheduledTime"
+                      type="time"
+                      value={scheduledTime}
+                      onChange={(e) => setScheduledTime(e.target.value)}
+                      required={isScheduled}
+                    />
+                  </div>
+                </div>
+              )}
+            </CardContent>
+          </Card>
+
           {/* SEO */}
           <Card>
             <CardHeader>
@@ -552,18 +723,127 @@ const AdminArtigos = () => {
             )}
             <Button
               type="submit"
-              disabled={submitting || uploadingImage || !title || !excerpt || !content}
+              disabled={submitting || uploadingImage || !title || !excerpt || !content || (isScheduled && (!scheduledDate || !scheduledTime))}
               className="gap-2"
             >
               {(submitting || uploadingImage) ? (
                 <Loader2 className="h-4 w-4 animate-spin" />
+              ) : isScheduled ? (
+                <Calendar className="h-4 w-4" />
               ) : (
                 <Send className="h-4 w-4" />
               )}
-              {uploadingImage ? "Enviando imagem..." : submitting ? "Publicando..." : "Publicar Artigo"}
+              {uploadingImage ? "Enviando imagem..." : submitting ? (isScheduled ? "Agendando..." : "Publicando...") : (isScheduled ? "Agendar Artigo" : "Publicar Artigo")}
             </Button>
           </div>
         </form>
+          </TabsContent>
+
+          <TabsContent value="list">
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <List className="h-5 w-5" />
+                  Artigos
+                </CardTitle>
+                <CardDescription>
+                  Todos os artigos criados, incluindo agendados e publicados
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                {loadingArticles ? (
+                  <div className="flex items-center justify-center py-8">
+                    <Loader2 className="h-6 w-6 animate-spin text-muted-foreground" />
+                  </div>
+                ) : articles.length === 0 ? (
+                  <div className="text-center py-8 text-muted-foreground">
+                    Nenhum artigo encontrado. Crie seu primeiro artigo na aba "Criar Artigo".
+                  </div>
+                ) : (
+                  <div className="overflow-x-auto">
+                    <Table>
+                      <TableHeader>
+                        <TableRow>
+                          <TableHead>Título</TableHead>
+                          <TableHead>Status</TableHead>
+                          <TableHead>Data de Publicação</TableHead>
+                          <TableHead>Categoria</TableHead>
+                          <TableHead>Autor</TableHead>
+                          <TableHead className="text-right">Ações</TableHead>
+                        </TableRow>
+                      </TableHeader>
+                      <TableBody>
+                        {articles.map((article) => (
+                          <TableRow key={article.id}>
+                            <TableCell className="font-medium max-w-[200px] truncate">
+                              {article.title}
+                            </TableCell>
+                            <TableCell>
+                              {getStatusBadge(article.status, article.published_at)}
+                            </TableCell>
+                            <TableCell>
+                              {article.published_at ? (
+                                <div className="flex flex-col">
+                                  <span className="text-sm">
+                                    {format(new Date(article.published_at), "dd/MM/yyyy", { locale: ptBR })}
+                                  </span>
+                                  <span className="text-xs text-muted-foreground">
+                                    {format(new Date(article.published_at), "HH:mm", { locale: ptBR })}
+                                  </span>
+                                </div>
+                              ) : (
+                                <span className="text-muted-foreground">-</span>
+                              )}
+                            </TableCell>
+                            <TableCell>
+                              {article.category || <span className="text-muted-foreground">-</span>}
+                            </TableCell>
+                            <TableCell>
+                              {article.author || <span className="text-muted-foreground">-</span>}
+                            </TableCell>
+                            <TableCell className="text-right">
+                              <div className="flex items-center justify-end gap-2">
+                                <Link to={`/blog/${article.slug}`} target="_blank">
+                                  <Button variant="ghost" size="icon" className="h-8 w-8">
+                                    <Eye className="h-4 w-4" />
+                                  </Button>
+                                </Link>
+                                <AlertDialog>
+                                  <AlertDialogTrigger asChild>
+                                    <Button variant="ghost" size="icon" className="h-8 w-8 text-destructive hover:text-destructive">
+                                      <Trash2 className="h-4 w-4" />
+                                    </Button>
+                                  </AlertDialogTrigger>
+                                  <AlertDialogContent>
+                                    <AlertDialogHeader>
+                                      <AlertDialogTitle>Excluir artigo</AlertDialogTitle>
+                                      <AlertDialogDescription>
+                                        Tem certeza que deseja excluir "{article.title}"? Esta ação não pode ser desfeita.
+                                      </AlertDialogDescription>
+                                    </AlertDialogHeader>
+                                    <AlertDialogFooter>
+                                      <AlertDialogCancel>Cancelar</AlertDialogCancel>
+                                      <AlertDialogAction
+                                        onClick={() => deleteArticle(article.id)}
+                                        className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
+                                      >
+                                        Excluir
+                                      </AlertDialogAction>
+                                    </AlertDialogFooter>
+                                  </AlertDialogContent>
+                                </AlertDialog>
+                              </div>
+                            </TableCell>
+                          </TableRow>
+                        ))}
+                      </TableBody>
+                    </Table>
+                  </div>
+                )}
+              </CardContent>
+            </Card>
+          </TabsContent>
+        </Tabs>
       </main>
     </div>
   );
