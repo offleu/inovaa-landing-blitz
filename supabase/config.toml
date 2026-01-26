@@ -5,3 +5,6 @@ verify_jwt = false
 
 [functions.airticle-webhook]
 verify_jwt = false
+
+[functions.publish-scheduled-articles]
+verify_jwt = false
